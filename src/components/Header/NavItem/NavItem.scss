@@ -1,0 +1,47 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.navItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    a {
+        color: $color-white-2;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 8px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        height: 100%;
+        text-decoration: none;
+
+        span {
+            font-weight: 500;
+        }
+
+        &:hover {
+            border: 1px solid $color-white;
+            color: $color-primary;
+            background-color: $color-black-2;
+        }
+    }
+}
+
+@include sm {
+    .navItem {
+        a {
+            padding: 0 4px;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+@include xs {
+    .navItem {
+        a {
+            font-size: 0.85rem;
+        }
+    }
+}

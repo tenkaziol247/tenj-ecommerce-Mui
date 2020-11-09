@@ -1,0 +1,43 @@
+@import "./variables.scss";
+
+@mixin width-frame {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 8px;
+}
+
+@mixin xs {
+    @media (max-width: #{$bp-sm - 1}) {
+        @content;
+    }
+}
+
+@mixin sm {
+    @media (max-width: #{$bp-md - 1}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (max-width: #{$bp-lg - 1}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (max-width: #{$bp-xl - 1}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: #{$bp-xl}) {
+        @content;
+    }
+}
+
+@mixin custom-responsive($screen) {
+    @media (max-width: ($screen - 1) + "px") {
+        @content;
+    }
+}

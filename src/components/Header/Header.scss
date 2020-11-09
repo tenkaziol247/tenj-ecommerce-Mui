@@ -1,0 +1,59 @@
+@import "../../utilities/variables.scss";
+@import "../../utilities/mixin.scss";
+
+.header {
+    .header__toolbar {
+        @include width-frame;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        .header__toolbar__left {
+            max-width: 160px;
+            height: 100%;
+            display: flex;
+        }
+        .header__toolbar__center {
+            height: 74%;
+            margin: auto 0;
+        }
+        .header__toolbar__right {
+            height: 80%;
+            margin: auto 0;
+            .header__toolbar__right__nav {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 100%;
+            }
+        }
+    }
+}
+
+@include md {
+    .header {
+        .header__toolbar {
+            .header__toolbar__left {
+            }
+            .header__toolbar__center {
+                display: none;
+            }
+            .header__toolbar__right {
+            }
+        }
+        .header__navigationBar {
+            display: none;
+        }
+    }
+}
+
+@include xs {
+    .header {
+        .header__toolbar {
+            height: 54px;
+        }
+    }
+}

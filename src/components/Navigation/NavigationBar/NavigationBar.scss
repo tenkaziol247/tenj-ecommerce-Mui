@@ -1,0 +1,82 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.navigationBar {
+    z-index: 6;
+    height: 36px;
+    width: 100%;
+    background-color: $color-white-3;
+    border-bottom: 1px solid $color-white-2;
+    top: 0;
+    left: 0;
+
+    .navigationBar__container {
+        @include width-frame;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+
+        .navigationBar__main {
+            height: 100%;
+        }
+
+        .navigationBar__campaign {
+            color: $color-primary;
+
+            h5 {
+                border-left: 1px solid $color-white-2;
+                padding-left: 12px;
+
+                span {
+                    padding-right: 6px;
+                }
+            }
+        }
+    }
+
+    &.navigationBar-onSroll150 {
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.5s;
+    }
+
+    &.navigationBar-onSroll300 {
+        position: fixed;
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@include md {
+    .navigationBar {
+        height: unset;
+        background-color: transparent;
+        border-bottom: none;
+
+        .navigationBar__container {
+            max-width: unset;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .navigationBar__main {
+                height: unset;
+            }
+
+            .navigationBar__campaign {
+                display: none;
+            }
+        }
+
+        &.navigationBar-onSroll150 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        &.navigationBar-onSroll300 {
+            position: unset;
+        }
+    }
+}

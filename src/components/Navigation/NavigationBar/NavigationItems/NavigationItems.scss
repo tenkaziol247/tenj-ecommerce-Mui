@@ -1,0 +1,13 @@
+@import "../../../../utilities/mixin.scss";
+
+.navigationItems {
+    list-style: none;
+    height: 100%;
+    display: flex;
+}
+
+@include md {
+    .navigationItems {
+        flex-direction: column;
+    }
+}

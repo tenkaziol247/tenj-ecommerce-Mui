@@ -1,0 +1,15 @@
+@import "../../../utilities/variables.scss";
+
+.sideDrawer {
+    background-color: $color-black-3;
+    height: 100%;
+    max-width: 260px;
+    .sideDrawer__header {
+        height: 40px;
+        margin: 16px 12px;
+    }
+    .sideDrawer__body {
+        border-top: 1px solid $color-gray-1;
+        padding: 12px 8px;
+    }
+}

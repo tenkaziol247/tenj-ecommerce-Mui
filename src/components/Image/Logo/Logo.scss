@@ -1,0 +1,15 @@
+.logo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
