@@ -1,0 +1,141 @@
+@import "../../../../utilities/variables.scss";
+@import "../../../../utilities/mixin.scss";
+
+.introCard {
+    max-height: 100%;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+
+    img {
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .introCard__content {
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        transform: translateY(-50%);
+
+        .introCard__subtitle {
+            color: $color-primary-2;
+            font-size: 1.3rem;
+        }
+
+        .introCard__title {
+            color: $color-black-1;
+            font-size: 2.9rem;
+            font-weight: 900;
+            max-width: 260px;
+            margin: 8px 0;
+        }
+
+        .introCard__oldPrice {
+            color: $color-black;
+            text-decoration: line-through;
+            font-size: 1.3rem;
+        }
+
+        .introCard__newPrice {
+            display: inline-block;
+            color: $color-primary;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            vertical-align: top;
+        }
+    }
+}
+
+@include md {
+    .introCard {
+        img {
+            width: 100%;
+            max-height: 100%;
+        }
+    }
+}
+
+@include sm {
+    .introCard {
+        .introCard__content {
+            left: 60px;
+
+            .introCard__subtitle {
+                font-size: 1rem;
+            }
+
+            .introCard__title {
+                font-size: 2.5rem;
+                line-height: 2.6rem;
+                max-width: 220px;
+                margin: 4px 0;
+            }
+
+            .introCard__oldPrice {
+                font-size: 1rem;
+            }
+
+            .introCard__newPrice {
+                font-size: 2.3rem;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .introCard {
+        .introCard__content {
+            left: 40px;
+
+            .introCard__subtitle {
+                font-size: 0.8rem;
+            }
+
+            .introCard__title {
+                font-size: 1.8rem;
+                line-height: 1.9rem;
+                max-width: 160px;
+            }
+
+            .introCard__oldPrice {
+                font-size: 0.8rem;
+            }
+
+            .introCard__newPrice {
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .introCard {
+        .introCard__content {
+            left: 30px;
+
+            .introCard__subtitle {
+                font-size: 0.7rem;
+            }
+
+            .introCard__title {
+                font-size: 1.6rem;
+                line-height: 1.6rem;
+                max-width: 140px;
+            }
+
+            .introCard__oldPrice {
+                font-size: 0.7rem;
+            }
+
+            .introCard__newPrice {
+                font-size: 1.4rem;
+            }
+        }
+    }
+}

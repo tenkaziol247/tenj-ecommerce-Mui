@@ -9,7 +9,6 @@ export default function FullTempalte({ component: Component, ...rest }) {
       render={(props) => {
         return (
           <>
-            {/* side drawer //toolbar */}
             <Header />
             <Component {...props} />
             {/* //footer */}

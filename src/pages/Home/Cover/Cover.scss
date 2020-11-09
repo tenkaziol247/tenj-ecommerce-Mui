@@ -1,0 +1,54 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.cover {
+    @include width-frame;
+    max-height: 400px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: flex;
+
+    .cover__left {
+        max-height: 100%;
+        flex: 65%;
+        overflow: hidden;
+        cursor: grab;
+    }
+
+    .cover__right {
+        margin-left: 16px;
+        max-height: 100%;
+        flex: 35%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+@include md {
+    .cover {
+        margin-top: 8px;
+        max-height: unset;
+        flex-wrap: wrap;
+
+        .cover__left {
+            flex: 100%;
+            margin-bottom: 8px;
+        }
+
+        .cover__right {
+            margin-left: 0px;
+            flex: 100%;
+            flex-direction: row;
+        }
+    }
+}
+
+@include xs {
+    .cover {
+        .cover__right {
+            flex: 100%;
+            flex-direction: column;
+        }
+    }
+}

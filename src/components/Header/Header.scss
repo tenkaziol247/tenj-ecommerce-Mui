@@ -15,13 +15,16 @@
             height: 100%;
             display: flex;
         }
-        .header__toolbar__center {
-            height: 74%;
-            margin: auto 0;
-        }
         .header__toolbar__right {
             height: 80%;
             margin: auto 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .header__toolbar__right__search {
+                height: 74%;
+                margin: auto 16px;
+            }
             .header__toolbar__right__nav {
                 list-style: none;
                 display: flex;
@@ -38,10 +41,10 @@
         .header__toolbar {
             .header__toolbar__left {
             }
-            .header__toolbar__center {
-                display: none;
-            }
             .header__toolbar__right {
+                .header__toolbar__right__search {
+                    display: none;
+                }
             }
         }
         .header__navigationBar {
@@ -54,6 +57,9 @@
     .header {
         .header__toolbar {
             height: 54px;
+            .header__toolbar__left {
+                max-width: 140px;
+            }
         }
     }
 }

@@ -9,10 +9,11 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     boxSizing: "border-box",
-    backgroundColor: fade(theme.palette.common.white, 0.4),
+    backgroundColor: fade(theme.palette.common.white, 0.15),
     border: `1px solid transparent`,
+    borderRadius: "24px",
     "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.45),
+      backgroundColor: fade(theme.palette.common.white, 0.2),
     },
     margin: theme.spacing("auto", 0),
     width: "100%",
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("lg")]: {
       width: "auto",
     },
-    [theme.breakpoints.down("lg")]: {
+    [theme.breakpoints.down("md")]: {
       "&:hover": {
         border: `1px solid ${theme.palette.primary.main}`,
       },
@@ -48,12 +49,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
     [theme.breakpoints.up("lg")]: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(0),
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width", duration.complex),
-      width: "20ch",
+      width: "16ch",
       "&:focus": {
-        width: "40ch",
+        width: "36ch",
       },
     },
   },

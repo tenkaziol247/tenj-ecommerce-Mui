@@ -14,15 +14,15 @@ import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(1, 0),
-    padding: "2px",
-    minWidth: "32px",
+    padding: "0px",
+    minWidth: "28px",
     display: "none",
     [theme.breakpoints.down("md")]: {
       display: "flex",
     },
   },
   header: {
-    backgroundColor: theme.palette.grey[900],
+    backgroundColor: theme.palette.black.dark,
   },
   navItemHide: {
     [theme.breakpoints.down("sm")]: {
@@ -81,10 +81,10 @@ export default function Header(props) {
           </button>
           <Logo />
         </div>
-        <div className="header__toolbar__center">
-          <SearchBar />
-        </div>
         <div className="header__toolbar__right">
+          <div className="header__toolbar__right__search">
+            <SearchBar />
+          </div>
           <ul className="header__toolbar__right__nav">
             <NavItem link="/cart">
               <>
