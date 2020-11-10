@@ -10,15 +10,13 @@
 
     .cover__left {
         max-height: 100%;
-        flex: 65%;
-        overflow: hidden;
-        cursor: grab;
+        width: 65%;
     }
 
     .cover__right {
         margin-left: 16px;
         max-height: 100%;
-        flex: 35%;
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
