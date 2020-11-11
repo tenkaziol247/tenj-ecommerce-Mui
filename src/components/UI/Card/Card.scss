@@ -1,0 +1,264 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.card {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid $color-white-5;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+    overflow: hidden;
+
+    .card__media {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+
+        a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                max-width: 200px;
+                transition: all 0.3s;
+                object-fit: contain;
+
+                &.card__image2 {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 5;
+                    opacity: 0;
+                }
+            }
+        }
+
+        .card__action {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 5;
+            height: 36px;
+            width: 100%;
+            display: flex;
+            background-color: $color-black-3;
+            transform: translateY(100%);
+            transition: all 0.3s;
+
+            .card__action__left,
+            .card__action__right {
+                flex: 1;
+                height: 100%;
+            }
+
+            .card__action__seperate {
+                display: block;
+                width: 2px;
+                height: 60%;
+                border-left: 1px solid $color-white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    .card__body {
+        flex: 1;
+        padding: 16px 20px 24px;
+        background-color: $color-white-3;
+
+        .card__categories {
+            color: $color-gray-1;
+            font-size: 0.9rem;
+            font-weight: lighter;
+
+            .card__category {
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    color: $color-black-1;
+                }
+
+                &::after {
+                    content: ", ";
+                }
+
+                &:last-of-type {
+                    &::after {
+                        content: "";
+                    }
+                }
+            }
+        }
+
+        .card__title {
+            color: $color-gray-1;
+            font-size: 1.1rem;
+            font-weight: 400;
+            padding: 5px 0;
+        }
+
+        .card__price {
+            .card__newPrice {
+                color: $color-primary;
+                padding-right: 10px;
+            }
+
+            .card__oldPrice {
+                color: $color-gray;
+            }
+        }
+
+        .card__feedback {
+            padding-top: 8px;
+
+            .card__rate {
+                font-size: 0.85rem;
+                padding-right: 10px;
+
+                .card__star__feedback {
+                    padding-right: 2px;
+                    color: $color-primary;
+                }
+
+                .card__star__empty {
+                    padding-right: 2px;
+                    color: $color-gray;
+                }
+            }
+
+            .card__review {
+                color: $color-gray;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+
+        .card__media {
+            img {
+                &.card__image2 {
+                    opacity: 1;
+                }
+            }
+
+            .card__action {
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+@include md {
+    .card {
+        .card__media {
+            .card__action {
+                height: 32px;
+                transform: translateY(0);
+
+                .card__action__left {
+                    flex: unset;
+                }
+
+                .card__action__seperate {
+                    display: none;
+                }
+            }
+        }
+        .card__body {
+            padding: 16px;
+            .card__title {
+                font-size: 1rem;
+                padding: 4px 0;
+            }
+            .card__price {
+                .card__newPrice {
+                    padding-right: 8px;
+                }
+            }
+            .card__feedback {
+                padding-top: 8px;
+                .card__rate {
+                    font-size: 0.8rem;
+                    padding-right: 8px;
+                }
+                .card__review {
+                    font-size: 0.85rem;
+                }
+            }
+        }
+    }
+}
+
+@include xs {
+    .card {
+        border-radius: 16px;
+
+        .card__media {
+            width: 100%;
+            max-height: 180px;
+
+            a {
+                img {
+                    max-width: 160px;
+                    object-fit: cover;
+                }
+            }
+
+            .card__action {
+                height: 24px;
+                background-color: $color-black-2;
+            }
+        }
+
+        .card__body {
+            padding: 8px 12px;
+            min-height: 140px;
+
+            .card__categories {
+                font-size: 0.8rem;
+            }
+
+            .card__title {
+                font-size: 0.9rem;
+                padding: 4px 0;
+            }
+
+            .card__price {
+                font-size: 0.86rem;
+                .card__newPrice {
+                    padding-right: 8px;
+                    font-weight: 500;
+                }
+            }
+
+            .card__feedback {
+                padding-top: 4px;
+
+                .card__rate {
+                    font-size: 0.8rem;
+                    padding-right: 8px;
+                }
+
+                .card__review {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+}

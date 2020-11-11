@@ -1,0 +1,21 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.featured {
+    @include width-frame;
+    margin-bottom: 60px;
+
+    .featured__tabPanel {
+        max-width: 100%;
+        margin-top: 24px;
+    }
+}
+
+@include xs {
+    .featured {
+        .featured__tabPanel {
+            max-width: 94%;
+            margin: 24px auto 0;
+        }
+    }
+}

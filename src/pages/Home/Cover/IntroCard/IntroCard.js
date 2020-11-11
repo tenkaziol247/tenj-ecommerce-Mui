@@ -1,6 +1,8 @@
-import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
+import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import PropTypes from "prop-types";
 
 import "./IntroCard.scss";
 
@@ -9,8 +11,8 @@ const useStyle = makeStyles((theme) => ({
     color: theme.palette.common.white,
     borderRadius: "24px",
     [theme.breakpoints.down("xs")]: {
-      fontSize: "0.65rem",
-      padding: "4px 8px",
+      fontSize: "0.62rem",
+      padding: "4px 12px",
     },
   },
 }));
@@ -34,6 +36,7 @@ export default function IntroCard(props) {
             component={Link}
             to="/list"
             className={classes.root}
+            endIcon={<ArrowRightAltIcon />}
           >
             Click here
           </Button>
@@ -42,3 +45,7 @@ export default function IntroCard(props) {
     </div>
   );
 }
+
+IntroCard.propTypes = {
+  item: PropTypes.object,
+};

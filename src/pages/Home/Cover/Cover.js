@@ -1,13 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./Cover.scss";
 import IntroCard from "./IntroCard/IntroCard";
 import BannerCard from "./BannerCard/BannerCard";
 import TenjCarousel from "../../../DIY/TenjCarousel/TenjCarousel";
 
-export default function Cover(props) {
-  const { coverLeftData, coverRightData } = props;
-
+export default function Cover({ coverLeftData, coverRightData, ...restProps }) {
   let coverLeftRender = null;
   if (coverLeftData.length > 0) {
     coverLeftRender = coverLeftData.map((ele) => {
@@ -25,9 +24,16 @@ export default function Cover(props) {
   return (
     <section className="cover">
       <div className="cover__left">
-        <TenjCarousel hoverColor={"#fcb83b"}>{coverLeftRender}</TenjCarousel>
+        <TenjCarousel hoverColor={"#fcb83b"} autoPlay autoplayHoverPause>
+          {coverLeftRender}
+        </TenjCarousel>
       </div>
       <div className="cover__right">{coverRightRender}</div>
     </section>
   );
 }
+
+Cover.propTypes = {
+  coverLeftData: PropTypes.array,
+  coverRightData: PropTypes.array,
+};

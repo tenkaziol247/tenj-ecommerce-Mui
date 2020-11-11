@@ -1,6 +1,7 @@
 import React from "react";
 import { Drawer } from "@material-ui/core";
 import SearchBar from "../../UI/SearchBar/SearchBar";
+import PropTypes from "prop-types";
 
 import "./SideDrawer.scss";
 import NavigationBar from "../NavigationBar/NavigationBar";
@@ -23,3 +24,7 @@ export default function SideDrawer(props) {
     </Drawer>
   );
 }
+
+SideDrawer.propTypes = {
+  toggleDrawer: PropTypes.func,
+};

@@ -1,6 +1,7 @@
-import { Button, makeStyles } from "@material-ui/core";
 import React from "react";
+import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import "./BannerCard.scss";
 
@@ -37,3 +38,7 @@ export default function BannerCard(props) {
     </div>
   );
 }
+
+BannerCard.propTypes = {
+  item: PropTypes.object,
+};

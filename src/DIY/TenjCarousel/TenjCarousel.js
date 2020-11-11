@@ -1,13 +1,16 @@
 import React, { useRef, useEffect, useState, Children } from "react";
+import PropTypes from "prop-types";
 
 import "./TenjCarousel.scss";
 
 export default function TenjCarousel({
   responsive = [{ size: 0, items: 1, marginItem: 0 }],
-  autoPlay = true,
+  autoPlay = false,
   autoPlayTimeout = 5000,
   autoplayHoverPause = false,
   children,
+  hoverColor = "#fcb83b",
+  activeColor = "#d18800",
   ...restProps
 }) {
   const carouselEle = useRef(null);
@@ -22,7 +25,7 @@ export default function TenjCarousel({
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [initialPosition, setInitialPosition] = useState(null);
   const [transformPosition, setTransformPosition] = useState(0);
-  const [widthParent, setWidthParent] = useState(1200);
+  const [widthParent, setWidthParent] = useState(1600);
   const [marginItem, setMarginItem] = useState(responsive[0].marginItem);
   const [walk, setWalk] = useState(0);
 
@@ -43,7 +46,7 @@ export default function TenjCarousel({
   //calculate carouselItem-width
   useEffect(() => {
     for (let item of responsive) {
-      if (widthParent > item.size) {
+      if (window.innerWidth > item.size) {
         setWidthCarouselItem(
           carouselEle.current.parentElement.offsetWidth / item.items -
             item.marginItem * 2
@@ -243,7 +246,13 @@ export default function TenjCarousel({
   });
 
   return (
-    <div className="tenj" style={{ "--hoverColor": `${restProps.hoverColor}` }}>
+    <div
+      className="tenj"
+      style={{
+        "--hoverColor": `${hoverColor}`,
+        "--activeColor": `${activeColor}`,
+      }}
+    >
       <div
         ref={carouselEle}
         className="carousel"
@@ -253,17 +262,17 @@ export default function TenjCarousel({
         }}
         onMouseDown={(e) => mouseDownHandler(e)}
         onMouseUp={mouseUpHandler}
-        onMouseLeave={mouseLeaveHandler}
         onMouseMove={(e) => mouseMoveHandler(e)}
+        onMouseLeave={mouseLeaveHandler}
+        onDragStart={(e) => dragStartHandler(e)}
         onMouseOver={mouseOverHandler}
         onMouseOut={mouseOutHandler}
-        onDragStart={(e) => dragStartHandler(e)}
       >
         {itemsRender}
       </div>
       <button
         style={restProps.customPrev}
-        disabled={!sAutoPlay ? prevIsDisabled : false}
+        disabled={!autoPlay ? prevIsDisabled : false}
         className="buttonTenj prev"
         onClick={(e) => prevButtonHandler(e)}
       >
@@ -271,7 +280,7 @@ export default function TenjCarousel({
       </button>
       <button
         style={restProps.customNext}
-        disabled={!sAutoPlay ? nextvIsDisabled : false}
+        disabled={!autoPlay ? nextvIsDisabled : false}
         className="buttonTenj next"
         onClick={(e) => nextButtonHandler(e)}
       >
@@ -280,3 +289,12 @@ export default function TenjCarousel({
     </div>
   );
 }
+
+TenjCarousel.propTypes = {
+  responsive: PropTypes.array,
+  autoPlay: PropTypes.bool,
+  autoPlayTimeout: PropTypes.number,
+  autoplayHoverPause: PropTypes.bool,
+  hoverColor: PropTypes.string,
+  customPrev: PropTypes.object,
+};

@@ -1,0 +1,76 @@
+@import "../../../../utilities/variables.scss";
+@import "../../../../utilities/mixin.scss";
+
+.caterogy {
+    margin-top: 24px;
+
+    a {
+        font-size: 0.9rem;
+        text-decoration: none !important;
+        color: $color-black-2;
+    }
+
+    .category__media {
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        .category__img {
+            position: relative;
+
+            img {
+                transition: transform 0.3s ease;
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                width: 104%;
+                height: 8px;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: $color-opacity-black;
+                border-radius: 50%;
+                filter: blur(2px);
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+        }
+    }
+
+    &:hover img {
+        transform: translateY(-16px);
+    }
+
+    &:hover .category__img::after {
+        opacity: 1;
+    }
+}
+
+@include xs {
+    .caterogy {
+        a {
+            font-size: 0.8rem;
+        }
+        .category__media {
+            height: 80px;
+
+            .category__img {
+                img {
+                    transition: transform 0.3s ease;
+                }
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+        &:hover img {
+            transform: translateY(-8px);
+        }
+    }
+}

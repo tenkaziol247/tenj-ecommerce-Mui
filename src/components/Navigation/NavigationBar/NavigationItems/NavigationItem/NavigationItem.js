@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import "./NavigationItem.scss";
 
@@ -12,3 +13,8 @@ export default function NavigationItem(props) {
     </li>
   );
 }
+
+NavigationItem.propTypes = {
+  pClass: PropTypes.string,
+  link: PropTypes.string,
+};
