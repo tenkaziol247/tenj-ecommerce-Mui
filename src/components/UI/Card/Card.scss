@@ -51,7 +51,7 @@
             display: flex;
             background-color: $color-black-3;
             transform: translateY(100%);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
 
             .card__action__left,
             .card__action__right {

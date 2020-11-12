@@ -1,13 +1,13 @@
 import { Button } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
 import "./Card.scss";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  customBtn: {
     borderRadius: 0,
     height: "100%",
     color: theme.palette.common.white,
@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Card(props) {
   const { item } = props;
+
   const classes = useStyles();
+
   return (
     <div className="card">
       <div
@@ -57,14 +59,14 @@ export default function Card(props) {
           <div className="card__action__left">
             <Button
               fullWidth
-              disableElevation
-              className={`${classes.root} ${classes.btnHide}`}
+              className={`${classes.customBtn} ${classes.btnHide}`}
+              onClick={() => props.handleShowModal(item)}
             >
               <VisibilityIcon fontSize="small" className={classes.icon} />
             </Button>
           </div>
           <div className="card__action__right">
-            <Button fullWidth disableElevation className={classes.root}>
+            <Button fullWidth disableElevation className={classes.customBtn}>
               <AddShoppingCartIcon fontSize="small" className={classes.icon} />
             </Button>
           </div>

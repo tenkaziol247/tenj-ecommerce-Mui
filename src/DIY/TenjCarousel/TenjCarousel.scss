@@ -63,6 +63,57 @@
         }
     }
 
+    .carousel__indicators {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 50%;
+        bottom: 4px;
+        transform: translateX(-50%);
+        .indicator__item {
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            border: 1px solid #aaaaaa;
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            &:hover {
+                background-color: rgba(36, 36, 36, 0.4);
+            }
+            &.selected {
+                border: 1px solid black;
+                background-color: black;
+            }
+        }
+        .indicator__item__custom {
+            box-sizing: border-box;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(231, 192, 118, 0.5);
+            margin: 0 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0.5;
+            img {
+                max-width: 100%;
+                object-fit: cover;
+            }
+            &:hover {
+                opacity: 1;
+            }
+            &.selected {
+                border: 2px solid #fcb83b;
+                opacity: 1;
+            }
+        }
+    }
+
     .moving {
         cursor: grab !important;
     }

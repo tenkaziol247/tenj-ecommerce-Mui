@@ -1,0 +1,131 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.renew {
+    @include width-frame;
+    margin-bottom: 60px;
+    background-image: url("../../../assets/images/bg-1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    padding: 8px;
+
+    .renew__container {
+        background-color: $color-white;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+
+        .renew__title {
+            flex: 1;
+            text-align: right;
+            margin-right: 20px;
+            padding: 20px;
+            border-right: 4px solid $color-white-1;
+
+            .renew__title__intro {
+                color: $color-primary;
+                font-size: 1.6rem;
+            }
+
+            .renew__title__main {
+                color: $color-black-1;
+                font-size: 1.4rem;
+            }
+        }
+
+        .renew__content {
+            flex: 2.5;
+            display: flex;
+            align-items: center;
+
+            .renew__content__text {
+                flex: 1.3;
+                margin-right: 16px;
+                font-size: 1.1rem;
+                color: $color-gray-1;
+                line-height: 1.8rem;
+
+                span {
+                    font-size: 1.15rem;
+                    color: $color-black;
+                }
+            }
+
+            .renew__content__action {
+                flex: 1;
+            }
+        }
+    }
+}
+
+@include md {
+    .renew {
+        .renew__container {
+            flex-direction: column;
+
+            .renew__title {
+                text-align: center;
+                margin-right: 0px;
+                padding: 0;
+                border-right: none;
+
+                .renew__title__intro {
+                    font-size: 1.4rem;
+                }
+
+                .renew__title__main {
+                    font-size: 1.2rem;
+                }
+            }
+
+            .renew__content {
+                text-align: center;
+                max-width: 400px;
+                display: flex;
+                flex-direction: column;
+
+                .renew__content__text {
+                    margin: 24px 0;
+                    font-size: 1rem;
+                    line-height: 1.4rem;
+
+                    span {
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include xs {
+    .renew {
+        .renew__container {
+            .renew__title {
+                .renew__title__intro {
+                    font-size: 1rem;
+                }
+
+                .renew__title__main {
+                    font-size: 1.1rem;
+                }
+            }
+
+            .renew__content {
+                max-width: 360px;
+
+                .renew__content__text {
+                    margin: 16px 0;
+                    font-size: 0.9rem;
+                    line-height: 1.2rem;
+
+                    span {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

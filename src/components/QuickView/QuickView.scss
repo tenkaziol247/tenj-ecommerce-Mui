@@ -1,0 +1,215 @@
+@import "../../utilities/variables.scss";
+
+.quickView {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+
+    .quickView__left {
+        box-sizing: border-box;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 16px 12px 0;
+
+        img {
+            max-width: 240px;
+            object-fit: cover;
+        }
+
+        .quickView__left__container {
+            border: 1px solid $color-white-5;
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            padding: 16px;
+
+            .quickView__left__container__image {
+                box-sizing: border-box;
+                width: 100%;
+                height: 70%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .quickView__right {
+        width: 50%;
+        height: 100%;
+        padding-left: 12px;
+
+        .quickView__right__above {
+            width: 100%;
+            height: 85%;
+            border-bottom: 1px solid $color-gray;
+
+            .quickView__right__name {
+                font-size: 1.7rem;
+                font-weight: 400;
+                color: $color-primary;
+                padding: 6px 0;
+            }
+
+            .quickView__right__feedback {
+                padding: 6px 0;
+
+                .quickView__right__rate {
+                    font-size: 0.85rem;
+                    padding-right: 10px;
+
+                    .quickView__right__rate__full {
+                        padding-right: 2px;
+                        color: $color-primary;
+                    }
+
+                    .quickView__right__rate__empty {
+                        padding-right: 2px;
+                        color: $color-gray;
+                    }
+                }
+
+                .quickView__right__review {
+                    color: $color-gray;
+                    font-size: 0.9rem;
+                    font-weight: 300;
+                    margin-left: 8px;
+                }
+            }
+
+            .quickView__right__price {
+                padding: 6px 0;
+
+                .quickView__right__newPrice {
+                    font-size: 1.4rem;
+                    color: $color-primary;
+                }
+
+                .quickView__right__oldPrice {
+                    font-size: 0.9rem;
+                    font-weight: 300;
+                    color: $color-gray;
+                    text-decoration: line-through;
+                    margin-left: 8px;
+                }
+            }
+
+            .quickView__right__description {
+                font-size: 0.95rem;
+                font-weight: 300;
+                line-height: 1.5rem;
+                color: $color-black-2;
+                height: 220px;
+                margin: 6px 0;
+                overflow-y: auto;
+
+                &::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 5px $color-gray-2;
+                    border-radius: 8px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: $color-primary;
+                    border-radius: 8px;
+                }
+
+                &::-webkit-scrollbar-thumb:hover {
+                    background: $color-primary-2;
+                }
+            }
+
+            .quickView__right__action {
+                display: flex;
+                align-items: center;
+                padding-top: 8px;
+                height: 32px;
+
+                .quickView__right__quantity {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 100%;
+                }
+
+                .quickView__right__addToCart {
+                    flex: 1;
+                    height: 100%;
+                    margin-left: 24px;
+
+                    span {
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+
+        .quickView__right__below {
+            width: 100%;
+            height: 15%;
+            padding-top: 8px;
+            font-size: 0.94rem;
+            font-weight: 300;
+
+            .quickView__right__categories {
+                .quickView__right__categories__title {
+                    padding-right: 12px;
+                }
+
+                .quickView__right__category {
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    color: $color-gray-2;
+
+                    &:hover {
+                        color: $color-black-2;
+                    }
+
+                    &::after {
+                        content: ", ";
+                    }
+
+                    &:last-of-type {
+                        &::after {
+                            content: "";
+                        }
+                    }
+                }
+            }
+
+            .quickView__right__social {
+                margin-top: 6px;
+
+                a {
+                    margin: 0 4px;
+                    padding: 0;
+                    display: inline-block;
+                    height: 32px;
+                    width: 32px;
+                    line-height: 32px;
+                    text-align: center;
+                    border: 1px solid $color-gray;
+                    border-radius: 50%;
+                    color: $color-black-2;
+                    box-sizing: border-box;
+                    font-size: 0.8rem;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        color: $color-primary;
+                        border-color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
+}

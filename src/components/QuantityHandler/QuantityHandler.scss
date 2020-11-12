@@ -1,0 +1,50 @@
+@import "../../utilities/variables.scss";
+
+.quantityHandler {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    border: 1px solid transparent;
+    max-width: 140px;
+
+    button {
+        height: 100%;
+        position: absolute;
+        background-color: transparent;
+        border: none;
+        font-size: 0.7rem;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 8px;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+    }
+
+    .quantityHandler__subtract {
+        left: 0px;
+    }
+
+    .quantityHandler__add {
+        right: 0px;
+    }
+
+    input {
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+        border: 1px solid $color-gray;
+
+        &:focus {
+            outline: none;
+            border: 1px solid $color-primary;
+        }
+    }
+}

@@ -31,3 +31,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, $color-primary-1, $color-pink-1);
 }
+
+body.modalOpen {
+  height: 100vh;
+  overflow-y: hidden;
+  padding-right: 8px;
+}

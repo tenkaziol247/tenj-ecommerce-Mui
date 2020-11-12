@@ -31,7 +31,6 @@ export default function Featured({ productsData, ...restProps }) {
   const [topratedData, setTopratedData] = useState([]);
 
   useEffect(() => {
-    console.log("rendering");
     const updateFeaturedData = [];
     const updateOnsaleData = [];
     const updateTopratedData = [];
@@ -64,6 +63,7 @@ export default function Featured({ productsData, ...restProps }) {
             item={item}
             mediaHeight="260px"
             bodyHeight="160px"
+            handleShowModal={restProps.handleShowModal}
           />
         );
       });
@@ -79,11 +79,11 @@ export default function Featured({ productsData, ...restProps }) {
             item={item}
             mediaHeight="260px"
             bodyHeight="160px"
+            handleShowModal={restProps.handleShowModal}
           />
         );
       });
     }
-    console.log("count");
   };
 
   const topratedPanelRender = () => {
@@ -95,6 +95,7 @@ export default function Featured({ productsData, ...restProps }) {
             item={item}
             mediaHeight="260px"
             bodyHeight="160px"
+            handleShowModal={restProps.handleShowModal}
           />
         );
       });

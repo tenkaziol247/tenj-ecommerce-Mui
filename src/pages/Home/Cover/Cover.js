@@ -8,6 +8,7 @@ import TenjCarousel from "../../../DIY/TenjCarousel/TenjCarousel";
 
 export default function Cover({ coverLeftData, coverRightData, ...restProps }) {
   let coverLeftRender = null;
+
   if (coverLeftData.length > 0) {
     coverLeftRender = coverLeftData.map((ele) => {
       return <IntroCard key={ele.id} item={ele} />;

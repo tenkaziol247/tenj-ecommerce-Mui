@@ -11,6 +11,9 @@ export default function TenjCarousel({
   children,
   hoverColor = "#fcb83b",
   activeColor = "#d18800",
+  showIndicator = false,
+  customIndicatorImage = null,
+  customIndicator = null,
   ...restProps
 }) {
   const carouselEle = useRef(null);
@@ -28,13 +31,14 @@ export default function TenjCarousel({
   const [widthParent, setWidthParent] = useState(1600);
   const [marginItem, setMarginItem] = useState(responsive[0].marginItem);
   const [walk, setWalk] = useState(0);
+  const [currentIndicatorValue, setCurrentIndicatorValue] = useState(0);
 
   //set position 0 when children changed
   useEffect(() => {
     setPositionX(0);
   }, [children]);
 
-  //update carousel width when screen changed
+  //update carousel width when screen changed and select first indicator item
   useEffect(() => {
     updateWidthParent();
     window.addEventListener("resize", updateWidthParent);
@@ -111,6 +115,13 @@ export default function TenjCarousel({
     autoPlayTimeout,
   ]);
 
+  //update current indicator value follow positionX
+  useEffect(() => {
+    setCurrentIndicatorValue(
+      Math.abs(positionX) / (widthCarouselItem + marginItem * 2)
+    );
+  }, [positionX, widthCarouselItem, marginItem]);
+
   const updateWidthParent = () => {
     setWidthParent(carouselEle.current.parentElement.offsetWidth);
     setPositionX(0);
@@ -143,6 +154,12 @@ export default function TenjCarousel({
         (prevState) => prevState - (widthCarouselItem + marginItem * 2)
       );
     }
+  };
+
+  const handleClickedIndicator = (e) => {
+    setPositionX(
+      -(e.currentTarget.value * (widthCarouselItem + marginItem * 2))
+    );
   };
 
   //create swipe action
@@ -245,6 +262,41 @@ export default function TenjCarousel({
     );
   });
 
+  let indicatorsRender = null;
+  if (showIndicator) {
+    indicatorsRender = Children.map(children, (_, index) => {
+      return (
+        <li
+          key={`indicator-item-${index}`}
+          className={`indicator__item ${
+            index === currentIndicatorValue && "selected"
+          }`}
+          style={customIndicator}
+          value={index}
+          onClick={(e) => handleClickedIndicator(e)}
+        ></li>
+      );
+    });
+  }
+
+  if (customIndicatorImage !== null) {
+    indicatorsRender = Children.map(children, (_, index) => {
+      return (
+        <li
+          key={`indicator-item-${index}`}
+          className={`indicator__item__custom ${
+            index === currentIndicatorValue && "selected"
+          }`}
+          value={index}
+          style={customIndicatorImage.customStyle}
+          onClick={(e) => handleClickedIndicator(e)}
+        >
+          <img src={customIndicatorImage.image[index]} alt="image__indicator" />
+        </li>
+      );
+    });
+  }
+
   return (
     <div
       className="tenj"
@@ -286,6 +338,7 @@ export default function TenjCarousel({
       >
         <i className="fa fa-chevron-right"></i>
       </button>
+      <ul className="carousel__indicators">{indicatorsRender}</ul>
     </div>
   );
 }
@@ -296,5 +349,9 @@ TenjCarousel.propTypes = {
   autoPlayTimeout: PropTypes.number,
   autoplayHoverPause: PropTypes.bool,
   hoverColor: PropTypes.string,
+  activeColor: PropTypes.string,
+  showIndicator: PropTypes.bool,
+  customIndicatorImage: PropTypes.object,
+  customIndicator: PropTypes.object,
   customPrev: PropTypes.object,
 };

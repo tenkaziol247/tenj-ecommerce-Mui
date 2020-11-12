@@ -6,9 +6,14 @@ import Loader from "../../components/Loader/Loader";
 import Cover from "./Cover/Cover";
 import Categories from "./Categories/Categories";
 import Featured from "./Featured/Featured";
+import QuickView from "../../components/QuickView/QuickView";
+import Modal from "../../components/UI/Modal/Modal";
+import Renew from "./Renew/Renew";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [infoItem, setInfoItem] = useState(null);
   const [coverLeftData, setCoverLeftData] = useState([]);
   const [coverRightData, setCoverRightData] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
@@ -52,6 +57,15 @@ export default function Home(props) {
     };
   }, []);
 
+  const handleShowModal = (item) => {
+    setOpenModal(true);
+    setInfoItem(item);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   const homeRender = () => {
     if (isLoading) {
       return <Loader />;
@@ -63,7 +77,14 @@ export default function Home(props) {
             coverRightData={coverRightData}
           />
           <Categories categoriesData={categoriesData} />
-          <Featured productsData={productsData} />
+          <Featured
+            productsData={productsData}
+            handleShowModal={handleShowModal}
+          />
+          <Renew />
+          <Modal openModal={openModal} handleCloseModal={handleCloseModal}>
+            <QuickView item={infoItem} />
+          </Modal>
         </>
       );
     }
