@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 
 import "./Card.scss";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   customBtn: {
@@ -88,7 +89,9 @@ export default function Card(props) {
             );
           })}
         </div>
-        <h5 className="card__title">{item.title}</h5>
+        <Link to="/list" exact="true">
+          {item.title}
+        </Link>
         <div className="card__price">
           <span className="card__newPrice">${item.newPrice}</span>
           <span className="card__oldPrice">

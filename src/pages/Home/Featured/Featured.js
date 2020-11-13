@@ -55,7 +55,7 @@ export default function Featured({ productsData, ...restProps }) {
   };
 
   const featuredPanelRender = () => {
-    if (featuredData !== null) {
+    if (featuredData.length > 0) {
       return featuredData.map((item) => {
         return (
           <Card
@@ -71,7 +71,7 @@ export default function Featured({ productsData, ...restProps }) {
   };
 
   const onsalePanelRender = () => {
-    if (onsaleData !== null) {
+    if (onsaleData.length > 0) {
       return onsaleData.map((item) => {
         return (
           <Card
@@ -87,7 +87,7 @@ export default function Featured({ productsData, ...restProps }) {
   };
 
   const topratedPanelRender = () => {
-    if (topratedData !== null) {
+    if (topratedData.length > 0) {
       return topratedData.map((item) => {
         return (
           <Card

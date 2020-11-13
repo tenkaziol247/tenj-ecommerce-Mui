@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./TenjCarousel.scss";
 
 export default function TenjCarousel({
-  responsive = [{ size: 0, items: 1, marginItem: 0 }],
+  responsive = [{ size: 0, itemsToShow: 1, itemsToScroll: 1, marginItem: 0 }],
   autoPlay = false,
   autoPlayTimeout = 5000,
   autoplayHoverPause = false,
@@ -19,8 +19,13 @@ export default function TenjCarousel({
   const carouselEle = useRef(null);
 
   const [sAutoPlay, setSAutoPlay] = useState(autoPlay);
+  const [widthParent, setWidthParent] = useState(1600);
+  const [marginItem, setMarginItem] = useState(responsive[0].marginItem);
   const [widthCarousel, setWidthCarousel] = useState(0);
   const [widthCarouselItem, setWidthCarouselItem] = useState(0);
+  const [itemsPerScreen, setItemsPerScreen] = useState(1);
+  const [itemsToScroll, setItemsToScroll] = useState(1);
+  const [totalItems, setTotalItems] = useState(1);
   const [positionX, setPositionX] = useState(0);
   const [prevIsDisabled, setPrevIsDisabled] = useState(true);
   const [nextvIsDisabled, setNextIsDisabled] = useState(false);
@@ -28,18 +33,15 @@ export default function TenjCarousel({
   const [leaveStatus, setLeaveStatus] = useState(false);
   const [initialPosition, setInitialPosition] = useState(null);
   const [transformPosition, setTransformPosition] = useState(0);
-  const [widthParent, setWidthParent] = useState(1600);
-  const [marginItem, setMarginItem] = useState(responsive[0].marginItem);
   const [walk, setWalk] = useState(0);
   const [currentIndicatorValue, setCurrentIndicatorValue] = useState(0);
+  const [space, setSpace] = useState(0);
 
-  //set position 0 when children changed
   useEffect(() => {
-    setPositionX(0);
-  }, [children]);
-
-  //update carousel width when screen changed and select first indicator item
-  useEffect(() => {
+    const updateWidthParent = () => {
+      setWidthParent(carouselEle.current.parentElement.offsetWidth);
+      setPositionX(0);
+    };
     updateWidthParent();
     window.addEventListener("resize", updateWidthParent);
     return () => {
@@ -47,14 +49,22 @@ export default function TenjCarousel({
     };
   }, []);
 
+  //set position 0 when children changed
+  useEffect(() => {
+    setPositionX(0);
+    setTotalItems(carouselEle.current.childElementCount);
+  }, [children]);
+
   //calculate carouselItem-width
   useEffect(() => {
     for (let item of responsive) {
       if (window.innerWidth > item.size) {
         setWidthCarouselItem(
-          carouselEle.current.parentElement.offsetWidth / item.items -
+          carouselEle.current.parentElement.offsetWidth / item.itemsToShow -
             item.marginItem * 2
         );
+        setItemsToScroll(item.itemsToScroll);
+        setItemsPerScreen(item.itemsToShow);
         setMarginItem(item.marginItem);
         break;
       }
@@ -63,11 +73,25 @@ export default function TenjCarousel({
 
   //calculate carousel-width
   useEffect(() => {
-    setWidthCarousel(
-      carouselEle.current.childElementCount *
-        (widthCarouselItem + marginItem * 2)
-    );
-  }, [widthCarouselItem, marginItem]);
+    if (itemsToScroll > 1) {
+      setWidthCarousel(
+        Math.ceil(totalItems / itemsPerScreen) *
+          ((widthCarouselItem + marginItem * 2) * itemsPerScreen)
+      );
+    } else {
+      setWidthCarousel(totalItems * (widthCarouselItem + marginItem * 2));
+    }
+  }, [
+    widthCarouselItem,
+    marginItem,
+    itemsPerScreen,
+    totalItems,
+    itemsToScroll,
+  ]);
+
+  useEffect(() => {
+    setSpace(widthCarousel - (widthCarouselItem + marginItem * 2) * totalItems);
+  }, [widthCarousel, widthCarouselItem, marginItem, totalItems]);
 
   //hide or show button when arrived boundary
   useEffect(() => {
@@ -92,12 +116,13 @@ export default function TenjCarousel({
       const timer = setTimeout(() => {
         if (
           positionX <=
-          carouselEle.current.parentElement.offsetWidth - widthCarousel
+          (marginItem * 2 + widthCarouselItem) * itemsToScroll - widthCarousel
         ) {
           setPositionX(0);
         } else {
           setPositionX(
-            (prevState) => prevState - (widthCarouselItem + marginItem * 2)
+            (prevState) =>
+              prevState - (marginItem * 2 + widthCarouselItem) * itemsToScroll
           );
         }
       }, autoPlayTimeout);
@@ -112,20 +137,17 @@ export default function TenjCarousel({
     widthCarouselItem,
     marginItem,
     sAutoPlay,
+    itemsToScroll,
     autoPlayTimeout,
   ]);
 
   //update current indicator value follow positionX
   useEffect(() => {
     setCurrentIndicatorValue(
-      Math.abs(positionX) / (widthCarouselItem + marginItem * 2)
+      Math.abs(positionX) /
+        ((widthCarouselItem + marginItem * 2) * itemsToScroll)
     );
-  }, [positionX, widthCarouselItem, marginItem]);
-
-  const updateWidthParent = () => {
-    setWidthParent(carouselEle.current.parentElement.offsetWidth);
-    setPositionX(0);
-  };
+  }, [positionX, widthCarouselItem, marginItem, itemsToScroll]);
 
   const prevButtonHandler = (e) => {
     e.preventDefault();
@@ -136,7 +158,8 @@ export default function TenjCarousel({
       );
     } else {
       setPositionX(
-        (prevState) => prevState + (widthCarouselItem + marginItem * 2)
+        (prevState) =>
+          prevState + (widthCarouselItem + marginItem * 2) * itemsToScroll
       );
     }
   };
@@ -151,14 +174,18 @@ export default function TenjCarousel({
       setPositionX(0);
     } else {
       setPositionX(
-        (prevState) => prevState - (widthCarouselItem + marginItem * 2)
+        (prevState) =>
+          prevState - (widthCarouselItem + marginItem * 2) * itemsToScroll
       );
     }
   };
 
   const handleClickedIndicator = (e) => {
     setPositionX(
-      -(e.currentTarget.value * (widthCarouselItem + marginItem * 2))
+      -(
+        e.currentTarget.value *
+        (itemsToScroll * (widthCarouselItem + marginItem * 2))
+      )
     );
   };
 
@@ -181,9 +208,18 @@ export default function TenjCarousel({
     carouselEle.current.classList.remove("moving");
     if (leaveStatus) {
       carouselEle.current.classList.remove("moving");
-      const walkRound =
+      let walkRound =
         Math.round(walk / (widthCarouselItem + marginItem * 2)) *
         (widthCarouselItem + marginItem * 2);
+      if (itemsToScroll > 1) {
+        if (walkRound !== 0) {
+          if (walkRound > 0) {
+            walkRound = (widthCarouselItem + marginItem * 2) * itemsToScroll;
+          } else {
+            walkRound = -(widthCarouselItem + marginItem * 2) * itemsToScroll;
+          }
+        }
+      }
       if (positionX > -20) {
         setPositionX(0);
       } else if (
@@ -198,15 +234,25 @@ export default function TenjCarousel({
       }
       setWalk(0);
     }
+    // setInitialPosition(0);
     setLeaveStatus(false);
   };
 
   const mouseUpHandler = () => {
     setMoving(false);
     carouselEle.current.classList.remove("moving");
-    const walkRound =
+    let walkRound =
       Math.round(walk / (widthCarouselItem + marginItem * 2)) *
       (widthCarouselItem + marginItem * 2);
+    if (itemsToScroll > 1) {
+      if (walkRound !== 0) {
+        if (walkRound > 0) {
+          walkRound = (widthCarouselItem + marginItem * 2) * itemsToScroll;
+        } else {
+          walkRound = -(widthCarouselItem + marginItem * 2) * itemsToScroll;
+        }
+      }
+    }
     if (positionX > -20) {
       setPositionX(0);
     } else if (
@@ -219,6 +265,7 @@ export default function TenjCarousel({
     } else {
       setPositionX(transformPosition + walkRound);
     }
+    // setInitialPosition(0);
     setWalk(0);
     setLeaveStatus(false);
   };
@@ -263,8 +310,17 @@ export default function TenjCarousel({
   });
 
   let indicatorsRender = null;
-  if (showIndicator) {
-    indicatorsRender = Children.map(children, (_, index) => {
+  if (
+    showIndicator &&
+    itemsToScroll * (marginItem * 2 + widthCarouselItem) > 0
+  ) {
+    indicatorsRender = [
+      ...Array(
+        Math.round(
+          widthCarousel / (itemsToScroll * (marginItem * 2 + widthCarouselItem))
+        )
+      ),
+    ].map((_, index) => {
       return (
         <li
           key={`indicator-item-${index}`}
@@ -279,8 +335,17 @@ export default function TenjCarousel({
     });
   }
 
-  if (customIndicatorImage !== null) {
-    indicatorsRender = Children.map(children, (_, index) => {
+  if (
+    customIndicatorImage !== null &&
+    itemsToScroll * (marginItem * 2 + widthCarouselItem) > 0
+  ) {
+    indicatorsRender = indicatorsRender = [
+      ...Array(
+        Math.round(
+          widthCarousel / (itemsToScroll * (marginItem * 2 + widthCarouselItem))
+        )
+      ),
+    ].map((_, index) => {
       return (
         <li
           key={`indicator-item-${index}`}
@@ -311,6 +376,7 @@ export default function TenjCarousel({
         style={{
           width: `${widthCarousel}px`,
           transform: `translateX(${positionX}px)`,
+          paddingRight: `${space}px`,
         }}
         onMouseDown={(e) => mouseDownHandler(e)}
         onMouseUp={mouseUpHandler}

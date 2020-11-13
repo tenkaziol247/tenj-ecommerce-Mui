@@ -9,6 +9,10 @@ import Featured from "./Featured/Featured";
 import QuickView from "../../components/QuickView/QuickView";
 import Modal from "../../components/UI/Modal/Modal";
 import Renew from "./Renew/Renew";
+import Deals from "./Deals/Deals";
+import Partners from "./Partners/Partners";
+import Trending from "./Trending/Trending";
+import Services from "./Services/Services";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,20 +22,28 @@ export default function Home(props) {
   const [coverRightData, setCoverRightData] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
   const [productsData, setProductsData] = useState([]);
+  const [dealsData, setDealsData] = useState([]);
+  const [partnersData, setPartnersData] = useState([]);
 
   useEffect(() => {
     const coverLeftUrl = axiosBaseURL.get("/mainCover.json");
     const coverRightUrl = axiosBaseURL.get("/minorCover.json");
     const urlCats = axiosBaseURL.get("/cats.json");
     const urlProducts = axiosBaseURL.get("/products.json");
-    // const urlDeals = axiosBaseURL.get("/deals.json");
-    // const urlPartners = axiosBaseURL.get("/partners.json");
-    // const urlRecommend = axiosBaseURL.get("/recommend.json");
+    const urlDeals = axiosBaseURL.get("/deals.json");
+    const urlPartners = axiosBaseURL.get("/partners.json");
 
     let unmount = false;
     setIsLoading(true);
     axios
-      .all([coverLeftUrl, coverRightUrl, urlCats, urlProducts])
+      .all([
+        coverLeftUrl,
+        coverRightUrl,
+        urlCats,
+        urlProducts,
+        urlDeals,
+        urlPartners,
+      ])
       .then(
         axios.spread((...allResponse) => {
           if (!unmount) {
@@ -39,9 +51,8 @@ export default function Home(props) {
             setCoverRightData(allResponse[1].data);
             setCategoriesData(allResponse[2].data);
             setProductsData(allResponse[3].data);
-            // setDealsData(allResponse[4].data);
-            // setPartnersData(allResponse[5].data);
-            // setRecommendData(allResponse[6].data);
+            setDealsData(allResponse[4].data);
+            setPartnersData(allResponse[5].data);
             setIsLoading(false);
           }
         })
@@ -82,6 +93,13 @@ export default function Home(props) {
             handleShowModal={handleShowModal}
           />
           <Renew />
+          <Deals dealsData={dealsData} />
+          <Partners partnersData={partnersData} />
+          <Trending
+            productsData={productsData}
+            handleShowModal={handleShowModal}
+          />
+          <Services />
           <Modal openModal={openModal} handleCloseModal={handleCloseModal}>
             <QuickView item={infoItem} />
           </Modal>

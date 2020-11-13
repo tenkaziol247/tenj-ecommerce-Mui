@@ -78,7 +78,7 @@
         background-color: $color-white-3;
 
         .card__categories {
-            color: $color-gray-1;
+            color: $color-gray;
             font-size: 0.9rem;
             font-weight: lighter;
 
@@ -102,11 +102,18 @@
             }
         }
 
-        .card__title {
+        a {
+            display: inline-block;
             color: $color-gray-1;
             font-size: 1.1rem;
             font-weight: 400;
-            padding: 5px 0;
+            padding: 6px 0;
+            text-decoration: none;
+
+            &:hover,
+            &:active {
+                color: $color-pink;
+            }
         }
 
         .card__price {
@@ -182,7 +189,7 @@
         }
         .card__body {
             padding: 16px;
-            .card__title {
+            a {
                 font-size: 1rem;
                 padding: 4px 0;
             }
@@ -234,7 +241,7 @@
                 font-size: 0.8rem;
             }
 
-            .card__title {
+            a {
                 font-size: 0.9rem;
                 padding: 4px 0;
             }

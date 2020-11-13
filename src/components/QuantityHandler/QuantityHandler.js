@@ -1,6 +1,4 @@
 import React from "react";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
 import PropTypes from "prop-types";
 
 import "./QuantityHandler.scss";

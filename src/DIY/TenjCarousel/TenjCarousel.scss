@@ -19,9 +19,11 @@
         -moz-user-select: none;
         -o-user-select: none;
         user-select: none;
+        box-sizing: border-box;
 
         .carousel__item {
             min-width: 100%;
+            float: 1;
         }
     }
 

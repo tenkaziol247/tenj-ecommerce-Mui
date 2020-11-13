@@ -1,0 +1,200 @@
+@import "../../../../utilities/variables.scss";
+@import "../../../../utilities/mixin.scss";
+
+.deal {
+    box-sizing: border-box;
+    width: 49%;
+    padding: 40px;
+    background-position: left center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid transparent;
+
+    .deal__container {
+        max-width: 230px;
+
+        .deal__header {
+            margin-bottom: 60px;
+
+            .deal__header__title {
+                font-size: 1.3rem;
+                font-weight: 500;
+                color: $color-pink;
+            }
+
+            .deal__header__subtitle {
+                font-size: 0.9rem;
+                font-weight: 400;
+                color: $color-gray-2;
+            }
+        }
+
+        .deal__body {
+            margin-bottom: 70px;
+
+            .deal__body__content {
+                a {
+                    text-decoration: none;
+                    font-size: 1rem;
+                    color: black;
+                    transition: color 0.3s;
+
+                    &:hover {
+                        color: $color-pink;
+                    }
+                }
+            }
+            .deal__body__price {
+                font-size: 1.2rem;
+                padding: 8px 0;
+
+                .deal__body__newPrice {
+                    color: $color-pink;
+                    font-weight: 600;
+                    padding-right: 10px;
+                }
+                .deal__body__oldPrice {
+                    color: $color-gray;
+                    text-decoration: line-through;
+                }
+            }
+            .deal__body__btn {
+                a {
+                    text-decoration: none;
+                    font-size: 0.9rem;
+                    color: $color-primary;
+                    border-bottom: 1px solid transparent;
+                    transition: all 0.3s;
+
+                    span {
+                        padding-left: 10px;
+                    }
+
+                    &:hover {
+                        border-bottom: 1px solid $color-primary;
+                    }
+                }
+            }
+        }
+
+        .deal__countDown {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+
+            .deal__countDown__item {
+                height: 44px;
+                width: 44px;
+                line-height: 44px;
+                text-align: center;
+                font-size: 1.4rem;
+                font-weight: 500;
+                background-color: $color-primary;
+                color: $color-white;
+                border-radius: 5px;
+                position: relative;
+
+                &::after {
+                    color: $color-black-1;
+                    font-size: 0.7rem;
+                    font-weight: 300;
+                    position: absolute;
+                    bottom: -34px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                &:first-of-type::after {
+                    content: "days";
+                }
+
+                &:nth-of-type(2)::after {
+                    content: "hours";
+                }
+
+                &:nth-of-type(3)::after {
+                    content: "minutes";
+                }
+
+                &:last-of-type::after {
+                    content: "seconds";
+                }
+            }
+        }
+    }
+}
+
+@include md {
+    .deal {
+        width: 100%;
+        padding: 50px;
+        margin: 4px 0;
+    }
+}
+
+@include xs {
+    .deal {
+        padding: 24px;
+        border-color: $color-white-2;
+
+        .deal__container {
+            max-width: 220px;
+
+            .deal__header {
+                margin-bottom: 48px;
+
+                .deal__header__title {
+                    font-size: 1rem;
+                }
+
+                .deal__header__subtitle {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .deal__body {
+                margin-bottom: 64px;
+
+                .deal__body__content {
+                    a {
+                        font-size: 1.1rem;
+                    }
+                }
+                .deal__body__price {
+                    font-size: 1.1rem;
+                    padding: 6px 0;
+
+                    .deal__body__newPrice {
+                        font-weight: 700;
+                    }
+                }
+                .deal__body__btn {
+                    a {
+                        font-size: 0.86rem;
+
+                        span {
+                            padding-left: 8px;
+                        }
+                    }
+                }
+            }
+
+            .deal__countDown {
+                margin-bottom: 28px;
+
+                .deal__countDown__item {
+                    height: 40px;
+                    width: 40px;
+                    line-height: 40px;
+                    font-size: 1.2rem;
+
+                    &::after {
+                        font-size: 0.64rem;
+                        bottom: -32px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -44,10 +44,7 @@ export default function Header(props) {
         closeBtnRef.current.click();
       }
     };
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
+    handleResizeWindow();
   }, []);
 
   const toggleDrawer = (status) => (event) => {

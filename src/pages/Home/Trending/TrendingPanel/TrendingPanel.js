@@ -27,7 +27,7 @@ const customBtnPrev = {
   left: "0",
 };
 
-export default function FeaturedPanel({
+export default function TrendingPanel({
   value,
   index,
   children,
@@ -53,7 +53,7 @@ export default function FeaturedPanel({
   );
 }
 
-FeaturedPanel.propTypes = {
+TrendingPanel.propTypes = {
   value: PropTypes.any.isRequired,
   index: PropTypes.any.isRequired,
   children: PropTypes.node,

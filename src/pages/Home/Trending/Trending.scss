@@ -1,0 +1,61 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.trending {
+    @include width-frame;
+    margin-bottom: 60px;
+
+    .trending__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        .trending__header__title {
+            font-size: 1.6rem;
+            font-weight: 500;
+        }
+    }
+
+    .trending__body {
+        display: flex;
+        .trending__body__recommend {
+            min-width: 220px;
+        }
+        .trending__body__panel {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+    }
+}
+
+@include lg {
+    .trending {
+        .trending__body {
+            .trending__body__recommend {
+                display: none;
+            }
+        }
+    }
+}
+
+@include md {
+    .trending {
+        .trending__header {
+            flex-direction: column;
+            .trending__header__title {
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+
+@include xs {
+    .trending {
+        .trending__header {
+            .trending__header__title {
+                font-size: 1.3rem;
+            }
+        }
+    }
+}
