@@ -9,5 +9,7 @@
     width: 80%;
     background-color: $color-white;
     box-sizing: border-box;
-    padding: 16px 32px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
 }

@@ -1,0 +1,123 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.toolbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 0 8px;
+
+    .toolbox__left {
+        color: $color-gray-2;
+
+        span {
+            color: $color-primary;
+            padding: 0 4px;
+        }
+    }
+
+    .toolbox__right {
+        display: flex;
+        align-items: center;
+
+        .toolbox__sortBy {
+            display: flex;
+            align-items: center;
+            margin-right: 24px;
+
+            p {
+                font-size: 0.8rem;
+                padding-right: 8px;
+            }
+
+            select {
+                padding: 4px 8px;
+                background-color: $color-white-3;
+                transform: all 0.3s;
+                border: 1px solid $color-black-1;
+                cursor: pointer;
+
+                &:hover,
+                &:focus {
+                    box-shadow: 0 0 3px 2px $color-opacity-primary;
+                }
+
+                &:active {
+                    box-shadow: 0 0 3px 2px $color-primary;
+                    background-color: $color-white;
+                }
+
+                option {
+                    background-color: $color-white;
+                }
+            }
+        }
+
+        .toolbox__gridColumnType {
+            display: flex;
+            align-items: center;
+
+            .toolbox__gridColumn__btn {
+                cursor: pointer;
+                background-color: transparent;
+                border: none;
+                padding: 2px 4px;
+                fill: $color-gray;
+                transition: all 0.3s;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:hover,
+                &:active,
+                &.active,
+                &:focus {
+                    fill: $color-black;
+                }
+            }
+        }
+    }
+}
+
+@include sm {
+    .toolbox {
+        margin-top: 20px;
+        justify-content: unset;
+
+        .toolbox__left {
+            display: none;
+        }
+
+        .toolbox__right {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .toolbox__sortBy {
+                margin-right: 8px;
+
+                p {
+                    font-size: 0.7rem;
+                    padding-right: 6px;
+                }
+
+                select {
+                    padding: 2px 4px;
+                }
+            }
+        }
+    }
+}
+
+@include custom-responsive(400) {
+    .toolbox {
+        .toolbox__right {
+            .toolbox__gridColumnType {
+                display: none;
+            }
+        }
+    }
+}

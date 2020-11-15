@@ -26,6 +26,11 @@
             color: $color-primary;
             background-color: $color-black-2;
         }
+
+        &:active,
+        &.actived {
+            color: $color-primary;
+        }
     }
 }
 

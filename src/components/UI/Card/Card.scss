@@ -256,6 +256,8 @@
 
             .card__feedback {
                 padding-top: 4px;
+                display: flex;
+                flex-wrap: wrap;
 
                 .card__rate {
                     font-size: 0.8rem;

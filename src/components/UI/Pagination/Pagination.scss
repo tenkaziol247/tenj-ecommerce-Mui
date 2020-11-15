@@ -1,0 +1,82 @@
+@import "../../../utilities/mixin.scss";
+@import "../../../utilities/variables.scss";
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 12px;
+            color: $color-black-1;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-size: 0.9rem;
+
+            .pagination__prev {
+                padding-right: 8px;
+            }
+
+            .pagination__next {
+                padding-left: 8px;
+            }
+
+            &:active,
+            &.active {
+                color: $color-primary;
+                border-color: $color-white-2;
+            }
+
+            &:hover {
+                color: $color-primary;
+                border-color: $color-white-2;
+            }
+
+            &.disabled {
+                cursor: unset;
+                color: $color-white-1;
+                user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+
+                &:hover {
+                    color: $color-white-1;
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+@include xs {
+    .pagination {
+        ul {
+            li {
+                padding: 8px 8px;
+                border-radius: 4px;
+                font-size: 0.75rem;
+
+                .pagination__prev {
+                    padding-right: 4px;
+                }
+
+                .pagination__next {
+                    padding-left: 4px;
+                }
+            }
+        }
+    }
+}

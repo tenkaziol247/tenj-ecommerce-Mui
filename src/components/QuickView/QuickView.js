@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import "./QuickView.scss";
+import * as actions from "../../store/action";
 import Loader from "../Loader/Loader";
 import QuantityHandler from "../QuantityHandler/QuantityHandler";
 import TenjCarousel from "../../DIY/TenjCarousel/TenjCarousel";
@@ -22,25 +25,33 @@ const useStyles = makeStyles((theme) => ({
 export default function QuickView(props) {
   const classes = useStyles();
   const { item } = props;
-  const [itemDispatch, setItemDispatch] = useState({
-    id: "",
-    price: 0,
-    name: "",
-    quantity: 1,
-  });
+  const [quantity, setQuantity] = useState(1);
+
+  const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariant = () => {
+    enqueueSnackbar("Item added to Cart!", {
+      variant: "success",
+      autoHideDuration: 2000,
+    });
+  };
+
+  const addToCart = (itemDispatch, quantityDispatch) => {
+    handleClickVariant();
+    dispatch(actions.addToCart(itemDispatch, quantityDispatch));
+    setQuantity(1);
+  };
 
   const subtractClickedHandler = () => {
-    if (itemDispatch.quantity > 1) {
-      setItemDispatch((prev) => {
-        return { ...prev, quantity: (prev.quantity -= 1) };
-      });
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
     }
   };
 
   const addClickedHandler = () => {
-    setItemDispatch((prev) => {
-      return { ...prev, quantity: (prev.quantity += 1) };
-    });
+    setQuantity((prev) => prev + 1);
   };
 
   let customIndicatorImage = null;
@@ -113,12 +124,12 @@ export default function QuickView(props) {
                 <QuantityHandler
                   subtractClickedHandler={subtractClickedHandler}
                   addClickedHandler={addClickedHandler}
-                  quantity={itemDispatch.quantity}
+                  quantity={quantity}
                 />
               </div>
               <div className="quickView__right__addToCart">
                 <Button
-                  onClick={() => {}}
+                  onClick={() => addToCart(item, quantity)}
                   startIcon={<AddShoppingCartIcon fontSize="small" />}
                   fullWidth
                   color="primary"

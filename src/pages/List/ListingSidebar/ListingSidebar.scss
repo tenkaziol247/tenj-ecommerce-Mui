@@ -1,0 +1,132 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.listingSidebar {
+    margin-right: 12px;
+
+    .listingSidebar__header {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        padding-bottom: 14px;
+        border-bottom: 1px solid $color-gray;
+
+        h5 {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+    }
+
+    .listingSidebar__category,
+    .listingSidebar__price {
+        border-bottom: 1px solid $color-gray;
+    }
+
+    .listingSidebar__collapsible {
+        font-size: 1.1rem;
+        padding: 12px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span {
+            font-size: 0.9rem;
+            margin-right: 6px;
+            position: relative;
+
+            svg {
+                &:last-child {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                }
+            }
+
+            &.less {
+                svg {
+                    &:first-child {
+                        opacity: 0 !important;
+                    }
+                    &:last-child {
+                        opacity: 1 !important;
+                    }
+                }
+            }
+
+            &.more {
+                svg {
+                    &:first-child {
+                        opacity: 1 !important;
+                    }
+                    &:last-child {
+                        opacity: 0 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .listingSidebar__content {
+        max-height: 500px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+
+        .listingSidebar__rangeSlider {
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+
+            .listingSidebar__rangeSlider__panel {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 8px;
+
+                span {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+@include md {
+    .listingSidebar {
+        margin: 12px;
+        .listingSidebar__content {
+            max-height: 0px;
+
+            .listingSidebar__rangeSlider {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@include xs {
+    .listingSidebar {
+        .listingSidebar__header {
+            h5 {
+                font-size: 0.9rem;
+                font-weight: 400;
+            }
+        }
+
+        .listingSidebar__collapsible {
+            font-size: 0.9rem;
+
+            span {
+                font-size: 0.8rem;
+            }
+        }
+
+        .listingSidebar__content {
+            .listingSidebar__rangeSlider {
+                width: 80%;
+            }
+        }
+    }
+}

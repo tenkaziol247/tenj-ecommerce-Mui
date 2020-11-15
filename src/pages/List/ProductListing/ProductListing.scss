@@ -1,0 +1,29 @@
+@import "../../../utilities/mixin.scss";
+
+.productListing {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+
+    .productListing__item {
+        width: 50%;
+        box-sizing: border-box;
+        padding: 0 8px;
+        margin-bottom: 12px;
+    }
+}
+
+@include xs {
+    .productListing {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+
+        .productListing__item {
+            width: 50%;
+            box-sizing: border-box;
+            padding: 0 4px;
+            margin-bottom: 12px;
+        }
+    }
+}

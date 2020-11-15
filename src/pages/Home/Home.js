@@ -24,6 +24,8 @@ export default function Home(props) {
   const [productsData, setProductsData] = useState([]);
   const [dealsData, setDealsData] = useState([]);
   const [partnersData, setPartnersData] = useState([]);
+  const [featuredData, setFeaturedData] = useState([]);
+  const [trendingData, setTrendingData] = useState([]);
 
   useEffect(() => {
     const coverLeftUrl = axiosBaseURL.get("/mainCover.json");
@@ -68,6 +70,21 @@ export default function Home(props) {
     };
   }, []);
 
+  useEffect(() => {
+    const updateFeaturedData = [];
+    const updateTrendingData = [];
+    productsData.forEach((ele) => {
+      if (ele.trending) {
+        updateTrendingData.push(ele);
+      }
+      if (ele.featured) {
+        updateFeaturedData.push(ele);
+      }
+    });
+    setFeaturedData(updateFeaturedData);
+    setTrendingData(updateTrendingData);
+  }, [productsData]);
+
   const handleShowModal = (item) => {
     setOpenModal(true);
     setInfoItem(item);
@@ -89,14 +106,14 @@ export default function Home(props) {
           />
           <Categories categoriesData={categoriesData} />
           <Featured
-            productsData={productsData}
+            productsData={featuredData}
             handleShowModal={handleShowModal}
           />
           <Renew />
           <Deals dealsData={dealsData} />
           <Partners partnersData={partnersData} />
           <Trending
-            productsData={productsData}
+            productsData={trendingData}
             handleShowModal={handleShowModal}
           />
           <Services />

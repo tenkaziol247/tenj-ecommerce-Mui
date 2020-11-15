@@ -3,9 +3,12 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import "./Card.scss";
-import { Link } from "react-router-dom";
+import * as actions from "../../../store/action";
 
 const useStyles = makeStyles((theme) => ({
   customBtn: {
@@ -35,6 +38,22 @@ export default function Card(props) {
   const { item } = props;
 
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariant = () => {
+    enqueueSnackbar("Item added to Cart!", {
+      variant: "success",
+      autoHideDuration: 2000,
+    });
+  };
+
+  const addToCart = (item, quantity) => {
+    handleClickVariant();
+    dispatch(actions.addToCart(item, quantity));
+  };
 
   return (
     <div className="card">
@@ -67,7 +86,12 @@ export default function Card(props) {
             </Button>
           </div>
           <div className="card__action__right">
-            <Button fullWidth disableElevation className={classes.customBtn}>
+            <Button
+              fullWidth
+              disableElevation
+              className={classes.customBtn}
+              onClick={() => addToCart(item, 1)}
+            >
               <AddShoppingCartIcon fontSize="small" className={classes.icon} />
             </Button>
           </div>

@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { SnackbarProvider } from "notistack";
 
 import FullTemplate from "./HOC/Template/FullTemplate/FullTemplate";
 import Loader from "./components/Loader/Loader";
@@ -47,33 +48,43 @@ const theme = createMuiTheme({
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Suspense fallback={<Loader />}>
-        <Switch>
-          {routes.map(({ component: Component, path, template, ...rest }) => {
-            switch (template) {
-              case "fullTemplate":
-                return (
-                  <FullTemplate
-                    key={path}
-                    path={path}
-                    component={Component}
-                    {...rest}
-                  />
-                );
-              default:
-                return (
-                  <Route
-                    key={path}
-                    path={path}
-                    component={Component}
-                    {...rest}
-                  />
-                );
-            }
-          })}
-          <Redirect to="/" />
-        </Switch>
-      </Suspense>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        iconVariant
+        dense
+      >
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            {routes.map(({ component: Component, path, template, ...rest }) => {
+              switch (template) {
+                case "fullTemplate":
+                  return (
+                    <FullTemplate
+                      key={path}
+                      path={path}
+                      component={Component}
+                      {...rest}
+                    />
+                  );
+                default:
+                  return (
+                    <Route
+                      key={path}
+                      path={path}
+                      component={Component}
+                      {...rest}
+                    />
+                  );
+              }
+            })}
+            <Redirect to="/" />
+          </Switch>
+        </Suspense>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

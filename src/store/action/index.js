@@ -1,1 +1,1 @@
-export { removeModal, showModal } from "./modalAction";
+export { addToCart, removeToCart } from "./cartAction";

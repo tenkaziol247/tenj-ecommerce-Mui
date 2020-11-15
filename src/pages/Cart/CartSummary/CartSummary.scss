@@ -1,0 +1,135 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.cartSummary {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: $color-white-3;
+    padding: 24px 30px;
+    border: 1px dotted $color-gray;
+
+    .cartSummary__title {
+        font-weight: 500;
+        font-size: 1.05rem;
+        padding-bottom: 12px;
+        border-bottom: 1px solid $color-black-2;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+            td:last-of-type {
+                text-align: right;
+            }
+        }
+
+        .cartSummary__subtotal {
+            td {
+                padding: 20px 0;
+                font-size: 1.05rem;
+                border-bottom: 1px solid $color-white-2;
+            }
+        }
+
+        .cartSummary__shipping {
+            td {
+                padding: 16px 0;
+                font-size: 1.05rem;
+            }
+        }
+
+        .cartSummary__shipping__item {
+            td {
+                padding: 8px 0;
+                font-weight: 300;
+                font-size: 0.9rem;
+
+                .cartSummary__custom__label {
+                    margin-left: 12px;
+                    position: relative;
+                    cursor: pointer;
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        height: 14px;
+                        width: 14px;
+                        line-height: 14px;
+                        background-color: transparent;
+                        border: 1px solid $color-white-2;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: 50%;
+                        left: -16px;
+                        transform: translate(-50%, -50%);
+                        transition: all 0.3s;
+                    }
+
+                    &::after {
+                        content: "";
+                        display: none;
+                        height: 4px;
+                        width: 4px;
+                        line-height: 4px;
+                        border: 1px solid $color-primary;
+                        background-color: $color-primary;
+                        border-radius: 50%;
+                        position: absolute;
+                        top: 50%;
+                        left: -16px;
+                        transform: translate(-50%, -50%);
+                        transition: all 0.3s;
+                    }
+                }
+
+                input {
+                    visibility: hidden;
+
+                    &:checked + .cartSummary__custom__label {
+                        &::before {
+                            border-color: $color-primary;
+                        }
+
+                        &::after {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+
+        .cartSummary__estimate {
+            td {
+                padding: 20px 0;
+                border-bottom: 1px solid $color-white-2;
+
+                h4 {
+                    margin-bottom: 4px;
+                    font-size: 1.05rem;
+                    font-weight: 400;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $color-gray-2;
+                    font-size: 0.9rem;
+                    font-weight: 300;
+                    border-bottom: 1px solid $color-gray-2;
+                }
+            }
+        }
+
+        .cartSummary__total {
+            td {
+                padding: 24px 0;
+                color: $color-primary;
+            }
+        }
+    }
+
+    .cartSummary__checkout {
+        text-align: center;
+    }
+}

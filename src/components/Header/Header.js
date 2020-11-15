@@ -10,6 +10,7 @@ import NavItem from "./NavItem/NavItem";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NavigationBar from "../Navigation/NavigationBar/NavigationBar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,10 @@ export default function Header(props) {
     handleResizeWindow();
   }, []);
 
+  const { cartStore } = useSelector((state) => {
+    return state.cart;
+  });
+
   const toggleDrawer = (status) => (event) => {
     if (
       event.type === "keydown" &&
@@ -83,20 +88,25 @@ export default function Header(props) {
             <SearchBar />
           </div>
           <ul className="header__toolbar__right__nav">
-            <NavItem link="/cart">
+            <NavItem link="/auth">
               <>
                 <small>Hello, Sign in</small>
                 <span> Account</span>
               </>
             </NavItem>
-            <NavItem link="/cart" pClass={classes.navItemHide}>
+            <NavItem link="/order" pClass={classes.navItemHide}>
               <>
                 <small>Returns</small>
                 <span> &amp; Orders</span>
               </>
             </NavItem>
             <NavItem link="/cart">
-              <Badge badgeContent={1} color="primary">
+              <Badge
+                badgeContent={cartStore.reduce((total, ele) => {
+                  return (total += ele.quantity);
+                }, 0)}
+                color="primary"
+              >
                 <ShoppingCartIcon />
               </Badge>
             </NavItem>

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
-import modalReducer from "./modalReducer";
+import cartReducer from "./cartReducer";
 
 const rootReducer = combineReducers({
-  modal: modalReducer,
+  cart: cartReducer,
 });
 
 export default rootReducer;
