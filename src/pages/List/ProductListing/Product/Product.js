@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.common.white,
     },
     [theme.breakpoints.down("xs")]: {
+      padding: "4px 0",
       fontSize: "0.7rem",
       "& > span": {
         paddingRight: "0px !important",

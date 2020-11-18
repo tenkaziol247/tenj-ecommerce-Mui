@@ -5,9 +5,10 @@ import "./Cover.scss";
 import IntroCard from "./IntroCard/IntroCard";
 import BannerCard from "./BannerCard/BannerCard";
 import TenjCarousel from "../../../DIY/TenjCarousel/TenjCarousel";
+import Loader from "../../../components/Loader/Loader";
 
 export default function Cover({ coverLeftData, coverRightData, ...restProps }) {
-  let coverLeftRender = null;
+  let coverLeftRender = <Loader />;
 
   if (coverLeftData.length > 0) {
     coverLeftRender = coverLeftData.map((ele) => {
@@ -15,7 +16,7 @@ export default function Cover({ coverLeftData, coverRightData, ...restProps }) {
     });
   }
 
-  let coverRightRender = null;
+  let coverRightRender = <Loader />;
   if (coverRightData.length > 0) {
     coverRightRender = coverRightData.map((ele) => {
       return <BannerCard key={ele.id} item={ele} />;

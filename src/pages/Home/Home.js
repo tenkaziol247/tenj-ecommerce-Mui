@@ -13,6 +13,7 @@ import Deals from "./Deals/Deals";
 import Partners from "./Partners/Partners";
 import Trending from "./Trending/Trending";
 import Services from "./Services/Services";
+import { useSelector } from "react-redux";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,34 +28,33 @@ export default function Home(props) {
   const [featuredData, setFeaturedData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
 
+  const { productsStore } = useSelector((state) => {
+    return state.products;
+  });
+
+  useEffect(() => {
+    setProductsData([...productsStore]);
+  }, [productsStore]);
+
   useEffect(() => {
     const coverLeftUrl = axiosBaseURL.get("/mainCover.json");
     const coverRightUrl = axiosBaseURL.get("/minorCover.json");
     const urlCats = axiosBaseURL.get("/cats.json");
-    const urlProducts = axiosBaseURL.get("/products.json");
     const urlDeals = axiosBaseURL.get("/deals.json");
     const urlPartners = axiosBaseURL.get("/partners.json");
 
     let unmount = false;
     setIsLoading(true);
     axios
-      .all([
-        coverLeftUrl,
-        coverRightUrl,
-        urlCats,
-        urlProducts,
-        urlDeals,
-        urlPartners,
-      ])
+      .all([coverLeftUrl, coverRightUrl, urlCats, urlDeals, urlPartners])
       .then(
         axios.spread((...allResponse) => {
           if (!unmount) {
             setCoverLeftData(allResponse[0].data);
             setCoverRightData(allResponse[1].data);
             setCategoriesData(allResponse[2].data);
-            setProductsData(allResponse[3].data);
-            setDealsData(allResponse[4].data);
-            setPartnersData(allResponse[5].data);
+            setDealsData(allResponse[3].data);
+            setPartnersData(allResponse[4].data);
             setIsLoading(false);
           }
         })

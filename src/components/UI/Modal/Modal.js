@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Transition from "react-transition-group/Transition";
 
 import "./Modal.scss";
 import Backdrop from "../Backdrop/Backdrop";
@@ -22,12 +23,27 @@ export default function Modal({
   return (
     <>
       <Backdrop show={openModal} removeBackdrop={handleCloseModal} />
-      <div
-        className="modal"
-        style={{ display: `${openModal ? "block" : "none"}` }}
+      <Transition
+        in={openModal}
+        timeout={{ enter: 400, exit: 300 }}
+        mountOnEnter
+        unmountOnExit
       >
-        {children}
-      </div>
+        {(state) => (
+          <div
+            className={[
+              "modal",
+              state === "entering"
+                ? "modalOpen"
+                : state === "exiting"
+                ? "modalClose"
+                : null,
+            ].join(" ")}
+          >
+            {children}
+          </div>
+        )}
+      </Transition>
     </>
   );
 }

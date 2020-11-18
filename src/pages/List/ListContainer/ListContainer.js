@@ -9,7 +9,7 @@ import ListingSidebar from "../ListingSidebar/ListingSidebar";
 export default function ListContainer(props) {
   const listMainRef = useRef(null);
 
-  const { productsData, isLoading, handleShowModal } = props;
+  const { productsData, handleShowModal } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
@@ -198,7 +198,6 @@ export default function ListContainer(props) {
         <ProductListing
           products={productsCurrentPage}
           girdColumn={gridType}
-          loading={isLoading}
           handleShowModal={handleShowModal}
         />
         <Pagination

@@ -51,7 +51,7 @@
             display: flex;
             background-color: $color-black-3;
             transform: translateY(100%);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease-in-out;
 
             .card__action__left,
             .card__action__right {
@@ -159,6 +159,9 @@
 
         .card__media {
             img {
+                &.card__image1 {
+                    opacity: 0;
+                }
                 &.card__image2 {
                     opacity: 1;
                 }

@@ -1,0 +1,56 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.authMain {
+    height: 100%;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .authMain__container {
+        background-color: $color-white-3;
+        border: 1px solid $color-white-1;
+        border-radius: 6px;
+        max-width: 570px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 24px 16px;
+        box-shadow: 1px 2px 2px 1px $color-opacity-black;
+
+        .authMain__tabPanel {
+            padding: 36px 0;
+        }
+
+        .authMain__container__social {
+            border-top: 1px solid $color-white-5;
+            padding: 16px 0 8px;
+        }
+
+        h2 {
+            margin: 8px 0 36px;
+            text-align: center;
+            font-weight: 500;
+            color: $color-gray-1;
+        }
+
+        .authMain__forgotPassword__btn {
+            margin: 24px 0;
+            text-align: center;
+        }
+    }
+}
+
+@include xs {
+    .authMain {
+        .authMain__container {
+            border: 1px solid $color-white-2;
+            padding: 24px 16px;
+            box-shadow: none;
+
+            .authMain__tabPanel {
+                padding: 20px 0;
+            }
+        }
+    }
+}

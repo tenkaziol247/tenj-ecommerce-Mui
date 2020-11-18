@@ -12,4 +12,43 @@
     border: 1px solid transparent;
     border-radius: 8px;
     overflow: hidden;
+    transform: all 0.3s;
+
+    &.modalOpen {
+        animation: openModal 0.4s ease-out forwards;
+    }
+
+    &.modalClose {
+        animation: closeModal 0.3s ease-out forwards;
+    }
+}
+
+@keyframes openModal {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -100vh);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -40%);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -30%);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100vh);
+    }
 }

@@ -1,13 +1,13 @@
 import React from "react";
 
 import "./ProductListing.scss";
-import Loader from "../../../components/Loader/Loader";
 import Product from "./Product/Product";
+import Loader from "../../../components/Loader/Loader";
 
 export default function ProductListing(props) {
-  const { products, loading, girdColumn } = props;
+  const { products, girdColumn } = props;
 
-  let productsRender = null;
+  let productsRender = <Loader />;
   if (products.length > 0) {
     productsRender = products.map((ele) => {
       return (
@@ -22,9 +22,5 @@ export default function ProductListing(props) {
     });
   }
 
-  return (
-    <div className="productListing">
-      {!loading ? productsRender : <Loader />}
-    </div>
-  );
+  return <div className="productListing">{productsRender}</div>;
 }

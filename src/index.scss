@@ -37,3 +37,50 @@ body.modalOpen {
   overflow-y: hidden;
   padding-right: 8px;
 }
+
+.fade-panel-enter {
+  opacity: 0;
+}
+
+.fade-panel-enter-active {
+  opacity: 1;
+  transition: all 0.3s ease-out;
+}
+
+.fade-panel-exit {
+  opacity: 1;
+}
+
+.fade-panel-exit-active {
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.dropdown__container {
+  background-color: $color-white;
+  padding: 2px 8px;
+  border: 1px solid $color-gray-1;
+  border-radius: 4px;
+  overflow: hidden;
+  ul {
+    list-style: none;
+    li {
+      a {
+        display: inline-block;
+        text-align: center;
+        width: 60px;
+        padding: 2px unset;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $color-black;
+
+        &:hover {
+          color: $color-primary;
+          text-decoration: underline;
+          text-decoration-color: $color-primary;
+        }
+      }
+    }
+  }
+}

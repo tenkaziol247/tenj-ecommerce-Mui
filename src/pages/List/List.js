@@ -4,35 +4,20 @@ import BackgroundCover from "../../components/BackgroundCover/BackgroundCover";
 import ListContainer from "./ListContainer/ListContainer";
 import Modal from "../../components/UI/Modal/Modal";
 import QuickView from "../../components/QuickView/QuickView";
-import axios from "../../constant/axios-baseURL";
+import { useSelector } from "react-redux";
 
 export default function List(props) {
   const [openModal, setOpenModal] = useState(false);
   const [infoItem, setInfoItem] = useState(null);
   const [productsData, setProductsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { productsStore } = useSelector((state) => {
+    return state.products;
+  });
 
   useEffect(() => {
-    let unmount = false;
-    setIsLoading(true);
-    axios
-      .get("/products.json")
-      .then((response) => {
-        if (!unmount) {
-          setProductsData(response.data);
-          setIsLoading(false);
-        }
-      })
-      .catch((error) => {
-        if (!unmount) {
-          console.log(error.message);
-          setIsLoading(false);
-        }
-      });
-    return () => {
-      unmount = true;
-    };
-  }, []);
+    setProductsData([...productsStore]);
+  }, [productsStore]);
 
   const handleShowModal = (item) => {
     setOpenModal(true);
@@ -52,7 +37,6 @@ export default function List(props) {
       <ListContainer
         productsData={productsData}
         handleShowModal={handleShowModal}
-        isLoading={isLoading}
       />
       <Modal openModal={openModal} handleCloseModal={handleCloseModal}>
         <QuickView item={infoItem} />

@@ -1,0 +1,40 @@
+@import "../../../../utilities/mixin.scss";
+@import "../../../../utilities/variables.scss";
+
+.signIn {
+    .signIn__item {
+        margin-bottom: 24px;
+    }
+    .signIn__button {
+        margin: 30px 0 8px;
+        text-align: center;
+    }
+    .signIn__forgotPassword {
+        text-align: right;
+        color: $color-primary;
+        transition: all 0.2s;
+        cursor: pointer;
+        font-size: 0.9rem;
+
+        &:hover {
+            span {
+                text-decoration: underline;
+                text-decoration-color: $color-primary;
+            }
+        }
+    }
+}
+
+@include xs {
+    .signIn {
+        .signIn__item {
+            margin-bottom: 16px;
+        }
+        .signIn__button {
+            margin: 24px 0 8px;
+        }
+        .signIn__forgotPassword {
+            font-size: 0.8rem;
+        }
+    }
+}

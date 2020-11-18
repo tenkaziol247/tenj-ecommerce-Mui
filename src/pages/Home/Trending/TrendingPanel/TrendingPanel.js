@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TenjCarousel from "../../../../DIY/TenjCarousel/TenjCarousel";
+import MyTabPanel from "../../../../components/MyTabPanel/MyTabPanel";
 
 const configResponsive = [
   { size: 992, itemsToShow: 4, itemsToScroll: 1, marginItem: 8 },
@@ -34,22 +35,15 @@ export default function TrendingPanel({
   ...restProps
 }) {
   return (
-    <div
-      className="featuredPanel"
-      id={`featured-panel-${index}`}
-      hidden={value !== index}
-      {...restProps}
-    >
-      {value === index && (
-        <TenjCarousel
-          responsive={configResponsive}
-          customPrev={customBtnPrev}
-          customNext={customBtnNext}
-        >
-          {children}
-        </TenjCarousel>
-      )}
-    </div>
+    <MyTabPanel value={value} index={index} {...restProps}>
+      <TenjCarousel
+        responsive={configResponsive}
+        customPrev={customBtnPrev}
+        customNext={customBtnNext}
+      >
+        {children}
+      </TenjCarousel>
+    </MyTabPanel>
   );
 }
 

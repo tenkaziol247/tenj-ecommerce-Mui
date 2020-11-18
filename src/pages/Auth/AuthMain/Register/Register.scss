@@ -1,0 +1,48 @@
+@import "../../../../utilities/variables.scss";
+@import "../../../../utilities/mixin.scss";
+
+.register {
+    .register__item {
+        margin-bottom: 24px;
+
+        &:nth-child(4) {
+            margin-bottom: 4px;
+        }
+    }
+    .register__button {
+        margin: 8px 0;
+        text-align: center;
+    }
+    .register__privacyPolicy {
+        color: $color-primary;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .register__errorMessage {
+        font-size: 0.78rem;
+        color: $color-red;
+        padding-left: 12px;
+    }
+}
+
+@include xs {
+    .register {
+        .register__item {
+            margin-bottom: 16px;
+
+            &:nth-child(4) {
+                margin-bottom: 4px;
+            }
+        }
+        .register__button {
+            margin: 4px 0;
+        }
+        .register__privacyPolicy {
+            font-size: 0.9rem;
+        }
+        .register__errorMessage {
+            font-size: 0.76rem;
+            padding-left: 8px;
+        }
+    }
+}

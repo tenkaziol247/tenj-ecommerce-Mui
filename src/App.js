@@ -1,15 +1,16 @@
-import React, { Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
+import { Redirect, Switch } from "react-router-dom";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { SnackbarProvider } from "notistack";
+import { useDispatch, useSelector } from "react-redux";
 
-import FullTemplate from "./HOC/Template/FullTemplate/FullTemplate";
 import Loader from "./components/Loader/Loader";
 import routes from "./pages/routes";
+import * as actions from "./store/action";
+import { auth } from "./firebase";
+import PublicRoute from "./HOC/PublicRoute/PublicRoute";
+import PrivateRoute from "./HOC/PrivateRoute/PrivateRoute";
 
-// import Modal from "./component/UI/Modal/Modal";
-// import QuickView from "./component/UI/Card/QuickView/QuickView";
-// import * as actions from "./store/action/index";
 const theme = createMuiTheme({
   breakpoints: {
     values: {
@@ -46,6 +47,22 @@ const theme = createMuiTheme({
 // });
 
 export default function App() {
+  const { loading } = useSelector((state) => {
+    return state.products;
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.fetchProducts());
+
+    const unSubcribe = auth.onAuthStateChanged((user) => {
+      dispatch(actions.onAuthStateChanged(user));
+    });
+
+    return unSubcribe;
+  }, [dispatch]);
+
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider
@@ -57,33 +74,38 @@ export default function App() {
         iconVariant
         dense
       >
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            {routes.map(({ component: Component, path, template, ...rest }) => {
-              switch (template) {
-                case "fullTemplate":
-                  return (
-                    <FullTemplate
-                      key={path}
-                      path={path}
-                      component={Component}
-                      {...rest}
-                    />
-                  );
-                default:
-                  return (
-                    <Route
-                      key={path}
-                      path={path}
-                      component={Component}
-                      {...rest}
-                    />
-                  );
-              }
-            })}
-            <Redirect to="/" />
-          </Switch>
-        </Suspense>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              {routes.map(
+                ({ component: Component, path, routePublic, ...restProps }) => {
+                  if (routePublic) {
+                    return (
+                      <PublicRoute
+                        key={path}
+                        path={path}
+                        {...restProps}
+                        component={Component}
+                      />
+                    );
+                  } else {
+                    return (
+                      <PrivateRoute
+                        key={path}
+                        path={path}
+                        {...restProps}
+                        component={Component}
+                      />
+                    );
+                  }
+                }
+              )}
+              <Redirect to="/" />
+            </Switch>
+          </Suspense>
+        )}
       </SnackbarProvider>
     </ThemeProvider>
   );
