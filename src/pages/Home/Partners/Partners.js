@@ -24,7 +24,12 @@ export default function Partners({ partnersData, ...restProps }) {
   }
   return (
     <section className="partners">
-      <TenjCarousel responsive={responsiveConfig} showIndicator>
+      <TenjCarousel
+        responsive={responsiveConfig}
+        showIndicator
+        autoPlay
+        autoplayHoverPause
+      >
         {partnersRender}
       </TenjCarousel>
     </section>

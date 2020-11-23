@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -8,11 +8,10 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import "./Register.scss";
 import * as actions from "../../../../store/action";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cusTextField: {
@@ -60,18 +59,6 @@ const validationSchema = yup.object({
 
 export default function Register(props) {
   const classes = useStyles();
-
-  const { redirectPath, currentUser } = useSelector((state) => {
-    return state.auth;
-  });
-
-  const history = useHistory();
-
-  useEffect(() => {
-    if (currentUser !== null) {
-      history.replace(redirectPath);
-    }
-  }, [currentUser, redirectPath, history]);
 
   const dispatch = useDispatch();
 

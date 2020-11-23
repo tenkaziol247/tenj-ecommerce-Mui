@@ -1,0 +1,100 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.summaryOrder {
+    background-color: $color-white-3;
+    border: 1px dashed $color-gray;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 32px;
+    width: 100%;
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .summaryOrder__title {
+        padding-bottom: 24px;
+        border-bottom: 1px solid $color-white-2;
+        font-weight: 500;
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    tr {
+        margin-bottom: 12px;
+        width: 100%;
+
+        &.summaryOrder__header {
+            th {
+                padding-top: 20px;
+            }
+            th:first-child {
+                text-align: left;
+            }
+            th:last-child {
+                text-align: right;
+            }
+        }
+
+        &.summaryOrder__subTotal {
+            td {
+                color: $color-pink;
+                font-size: 1rem;
+            }
+        }
+
+        &.summaryOrder__total {
+            td {
+                color: $color-primary;
+                font-size: 1.1rem;
+                &:first-of-type {
+                    font-weight: 500;
+                }
+            }
+        }
+
+        td {
+            padding: 16px 0;
+        }
+
+        td {
+            font-size: 0.9rem;
+            color: $color-gray-1;
+            border-top: 1px solid $color-white-2;
+
+            .summaryOrder__quantity {
+                padding-right: 4px;
+                font-size: 0.8rem;
+            }
+
+            a {
+                text-decoration: none;
+                color: $color-blue;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+
+            &:first-of-type {
+                padding-right: 16px;
+            }
+
+            &:last-of-type {
+                text-align: right;
+            }
+        }
+
+        &:first-child {
+            td {
+                border-top: none;
+            }
+        }
+    }
+
+    .summaryOrder__header {
+    }
+}

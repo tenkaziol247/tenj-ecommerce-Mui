@@ -2,5 +2,7 @@
 
 .auth {
     background: linear-gradient(-50deg, rgb(63, 196, 191), rgb(80, 142, 214));
-    height: 100vh;
+    min-height: 100vh;
+    padding: 12px 0;
+    box-sizing: border-box;
 }

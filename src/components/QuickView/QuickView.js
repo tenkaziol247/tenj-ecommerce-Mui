@@ -4,12 +4,14 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
+import { Link } from "react-router-dom";
 
 import "./QuickView.scss";
 import * as actions from "../../store/action";
 import Loader from "../Loader/Loader";
 import QuantityHandler from "../QuantityHandler/QuantityHandler";
 import TenjCarousel from "../../DIY/TenjCarousel/TenjCarousel";
+import ProductFooter from "../ProductFooter/ProductFooter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,12 +85,14 @@ export default function QuickView(props) {
         </div>
         <div className="quickView__right">
           <div className="quickView__right__above">
-            <h3 className="quickView__right__name">{item.title}</h3>
+            <h3 className="quickView__right__name">
+              <Link to={`/product/${item.id}`}>{item.title}</Link>
+            </h3>
             <div className="quickView__right__feedback">
               <span className="quickView__right__rate">
                 {[...Array(item.rate)].map((_, i) => {
                   return (
-                    <span key={i} className="quickView__right__rate__full">
+                    <span key={i} className="yellow-star">
                       <i className="fa fa-star"></i>
                     </span>
                   );
@@ -96,7 +100,7 @@ export default function QuickView(props) {
                 {item.rate < 5
                   ? [...Array(5 - item.rate)].map((_, i) => {
                       return (
-                        <span key={i} className="quickView__right__rate__empty">
+                        <span key={i} className="gray-star">
                           <i className="fa fa-star"></i>
                         </span>
                       );
@@ -142,35 +146,7 @@ export default function QuickView(props) {
               </div>
             </div>
           </div>
-          <div className="quickView__right__below">
-            <p className="quickView__right__categories">
-              <span className="quickView__right__categories__title">
-                Category:
-              </span>
-              {item.category.map((catItem, index) => {
-                return (
-                  <span key={index} className="quickView__right__category">
-                    {catItem}
-                  </span>
-                );
-              })}
-            </p>
-            <p className="quickView__right__social">
-              Share:
-              <a href="https://www.facebook.com">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="https://twitter.com">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="https://www.instagram.com">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="https://www.pinterest.com">
-                <i className="fab fa-pinterest-p"></i>
-              </a>
-            </p>
-          </div>
+          <ProductFooter item={item.category} />
         </div>
       </div>
     );

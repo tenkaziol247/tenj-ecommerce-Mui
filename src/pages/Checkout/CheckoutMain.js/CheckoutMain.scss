@@ -1,0 +1,7 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.checkoutMain {
+    @include width-frame;
+    margin-bottom: 60px;
+}

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Button, TextField, IconButton } from "@material-ui/core";
+import { Tabs, Tab, Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Link } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./AuthMain.scss";
 import MyTabPanel from "../../../components/MyTabPanel/MyTabPanel";
 import SignIn from "./SignIn/SignIn";
 import Register from "./Register/Register";
 import Loader from "../../../components/Loader/Loader";
+import * as actions from "../../../store/action";
 
 const useStyles = makeStyles((theme) => ({
   cusTab: {
@@ -48,11 +49,23 @@ const validationSchema = yup.object({
 export default function AuthMain(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const { error, loading } = useSelector((state) => state.auth);
+
+  const { error, loading, successMessage } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const sendPasswordResetEmail = (email) =>
+    dispatch(actions.resetPassword(email));
 
   useEffect(() => {
     error && alert(error.message);
-  }, [error]);
+    const resetError = () => dispatch(actions.resetError());
+    const resetSuccessMessage = () => dispatch(actions.resetSuccessMessage());
+    return () => {
+      resetError();
+      successMessage !== "" && resetSuccessMessage();
+    };
+  }, [error, successMessage, dispatch]);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -97,7 +110,7 @@ export default function AuthMain(props) {
     initialValues: { email: "" },
     validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      sendPasswordResetEmail(values.email);
     },
   });
 
@@ -115,34 +128,40 @@ export default function AuthMain(props) {
           </Button>
         </div>
         <h2>Forgot Your Password?</h2>
-        <form
-          className="authMain__forgotPassword"
-          onSubmit={formik.handleSubmit}
-        >
-          <TextField
-            className={classes.cusTextField}
-            variant="outlined"
-            fullWidth
-            id="email"
-            name="email"
-            label="Enter Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            size="small"
-          />
-          <div className="authMain__forgotPassword__btn">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.cusButton}
-            >
-              Send
-            </Button>
+        {successMessage === "" ? (
+          <form
+            className="authMain__forgotPassword"
+            onSubmit={formik.handleSubmit}
+          >
+            <TextField
+              className={classes.cusTextField}
+              variant="outlined"
+              fullWidth
+              id="email"
+              name="email"
+              label="Enter Email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              size="small"
+            />
+            <div className="authMain__forgotPassword__btn">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.cusButton}
+              >
+                Send
+              </Button>
+            </div>
+          </form>
+        ) : (
+          <div className="authMain__forgotPassword__successMessage">
+            <p>{successMessage}</p>
           </div>
-        </form>
+        )}
       </>
     );
   }

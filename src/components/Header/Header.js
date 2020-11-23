@@ -112,7 +112,9 @@ export default function Header(props) {
                 <li className="header__toolbar__right__nav__item">
                   <p>
                     <small>Hello,</small>
-                    <span>{currentUser.displayName}</span>
+                    <span title={currentUser.displayName}>
+                      {currentUser.displayName}
+                    </span>
                   </p>
                   <div>
                     <IconButton
@@ -124,7 +126,7 @@ export default function Header(props) {
                   </div>
                 </li>
               )}
-              <NavItem link="/profile" pClass={classes.navItemHide}>
+              <NavItem link="/dashboard?tab=order" pClass={classes.navItemHide}>
                 <>
                   <small>Returns</small>
                   <span> &amp; Orders</span>
@@ -161,7 +163,7 @@ export default function Header(props) {
               >
                 <ul>
                   <li className="dropdown__profile">
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/dashboard">My Account</Link>
                   </li>
                   <li className="dropdown__logout">
                     <Link to="/logout">Log out</Link>

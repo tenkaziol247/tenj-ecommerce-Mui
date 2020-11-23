@@ -51,6 +51,8 @@ export default function App() {
     return state.products;
   });
 
+  const { loading: loadingAuth } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -74,16 +76,16 @@ export default function App() {
         iconVariant
         dense
       >
-        {loading ? (
+        {loading || loadingAuth ? (
           <Loader />
         ) : (
           <Suspense fallback={<Loader />}>
             <Switch>
               {routes.map(
                 ({ component: Component, path, routePublic, ...restProps }) => {
-                  if (routePublic) {
+                  if (!routePublic) {
                     return (
-                      <PublicRoute
+                      <PrivateRoute
                         key={path}
                         path={path}
                         {...restProps}
@@ -92,7 +94,7 @@ export default function App() {
                     );
                   } else {
                     return (
-                      <PrivateRoute
+                      <PublicRoute
                         key={path}
                         path={path}
                         {...restProps}

@@ -102,7 +102,7 @@ export default function Product(props) {
         </div>
       </div>
       <div className="product__text">
-        <Link to="/" exact="true" title={product.title}>
+        <Link to={`/product/${product.id}`} title={product.title}>
           <h5>{product.title}</h5>
         </Link>
         <p>

@@ -14,7 +14,7 @@ export default function PrivateRoute({
     <Route
       {...restProps}
       render={(props) =>
-        currentUser ? <Component {...props} /> : <Redirect to="/" />
+        currentUser ? <Component {...props} /> : <Redirect to="/auth" />
       }
     />
   );
@@ -30,7 +30,7 @@ export default function PrivateRoute({
               <Footer />
             </>
           ) : (
-            <Redirect to="/" />
+            <Redirect to="/auth" />
           )
         }
       />

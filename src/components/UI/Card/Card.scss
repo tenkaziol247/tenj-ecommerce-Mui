@@ -132,17 +132,7 @@
 
             .card__rate {
                 font-size: 0.85rem;
-                padding-right: 10px;
-
-                .card__star__feedback {
-                    padding-right: 2px;
-                    color: $color-primary;
-                }
-
-                .card__star__empty {
-                    padding-right: 2px;
-                    color: $color-gray;
-                }
+                padding-right: 8px;
             }
 
             .card__review {

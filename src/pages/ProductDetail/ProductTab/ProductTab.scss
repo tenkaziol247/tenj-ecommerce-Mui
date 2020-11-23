@@ -1,0 +1,121 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.productTab {
+    margin: 60px auto 30px;
+
+    .productTab__panel {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid $color-primary;
+
+        .productTab__content {
+            box-sizing: border-box;
+            padding: 16px;
+            .productTab__content__title {
+                font-size: 1.1rem;
+                margin-bottom: 24px;
+            }
+            p {
+                font-size: 0.9rem;
+                font-weight: 300;
+                color: $color-black-2;
+            }
+            .productTab__review__item {
+                border-bottom: 1px solid $color-white-2;
+                padding: 12px 4px 8px;
+
+                .review__left {
+                    display: flex;
+                    align-items: flex-start;
+                    .review__avatar {
+                        margin-right: 8px;
+                    }
+                }
+
+                .review__name {
+                    font-size: 1.1rem;
+                    color: $color-pink;
+                }
+
+                .review__rate {
+                    margin: 4px 0;
+                }
+
+                .review__title {
+                    font-size: 1.05rem;
+                    margin-bottom: 8px;
+                }
+
+                .review__comment {
+                    margin-top: 8px;
+                    font-size: 0.9rem;
+                    color: $color-blue-1;
+                    cursor: pointer;
+
+                    &:hover,
+                    &:focus,
+                    &:active {
+                        text-decoration: underline;
+                        text-decoration-color: $color-blue-1;
+                    }
+                }
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px $color-gray-2;
+            border-radius: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: $color-primary;
+            border-radius: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: $color-primary-2;
+        }
+    }
+}
+
+@include xs {
+    .productTab {
+        margin: 30px auto 10px;
+        .productTab__panel {
+            .productTab__content {
+                padding: 12px;
+                .productTab__content__title {
+                    font-size: 1rem;
+                    margin-bottom: 16px;
+                }
+                p {
+                    font-size: 0.84rem;
+                }
+                .productTab__review__item {
+                    .review__left {
+                        .review__avatar {
+                            display: none;
+                        }
+                    }
+
+                    .review__name {
+                        font-size: 1.05rem;
+                    }
+
+                    .review__title {
+                        font-size: 1rem;
+                    }
+
+                    .review__comment {
+                        font-size: 0.86rem;
+                    }
+                }
+            }
+        }
+    }
+}

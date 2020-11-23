@@ -22,7 +22,11 @@ export default function NavigationItems(props) {
       <NavigationItem link="/list" exact>
         Products
       </NavigationItem>
-      <NavigationItem link="/order" exact pClass={classes.navigationHideItem}>
+      <NavigationItem
+        link="/dashboard?tab=order"
+        exact
+        pClass={classes.navigationHideItem}
+      >
         Order
       </NavigationItem>
     </ul>

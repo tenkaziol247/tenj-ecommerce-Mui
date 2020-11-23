@@ -63,7 +63,7 @@ export default function Card(props) {
           height: `${props.mediaHeight ? props.mediaHeight : undefined}`,
         }}
       >
-        <a href="/">
+        <Link to={`/product/${item.id}`}>
           <img
             src={item.image[0]}
             alt="image_product1"
@@ -74,7 +74,7 @@ export default function Card(props) {
             alt="image_product2"
             className="card__image2"
           />
-        </a>
+        </Link>
         <div className="card__action">
           <div className="card__action__left">
             <Button
@@ -113,9 +113,7 @@ export default function Card(props) {
             );
           })}
         </div>
-        <Link to="/list" exact="true">
-          {item.title}
-        </Link>
+        <Link to={`/product/${item.id}`}>{item.title}</Link>
         <div className="card__price">
           <span className="card__newPrice">${item.newPrice}</span>
           <span className="card__oldPrice">
@@ -126,7 +124,7 @@ export default function Card(props) {
           <span className="card__rate">
             {[...Array(item.rate)].map((_, i) => {
               return (
-                <span key={i} className="card__star__feedback">
+                <span key={i} className="yellow-star">
                   <i className="fa fa-star"></i>
                 </span>
               );
@@ -134,7 +132,7 @@ export default function Card(props) {
             {item.rate < 5
               ? [...Array(5 - item.rate)].map((_, i) => {
                   return (
-                    <span key={i} className="card__star__empty">
+                    <span key={i} className="gray-star">
                       <i className="fa fa-star"></i>
                     </span>
                   );

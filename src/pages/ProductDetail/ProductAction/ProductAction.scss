@@ -1,0 +1,92 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.productAction {
+    height: 500px;
+    padding: 12px 8px 0 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .productAction__container {
+        height: 400px;
+        overflow-y: auto;
+        .productAction__name {
+            margin-bottom: 12px;
+            color: $color-primary;
+            font-weight: 400;
+            font-size: 1.6rem;
+        }
+
+        .productAction__feedback {
+            margin-bottom: 12px;
+            .productAction__feedback__reviews {
+                margin-left: 8px;
+                color: $color-gray;
+            }
+        }
+
+        .productAction__price {
+            margin-bottom: 12px;
+            .productAction__newPrice {
+                color: $color-primary;
+                font-size: 1.2rem;
+                margin-right: 8px;
+            }
+            .productAction__oldPrice {
+                color: $color-gray;
+                text-decoration: line-through;
+            }
+        }
+
+        .productAction__color {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+
+            .productAction__color__title {
+                margin-right: 12px;
+            }
+        }
+
+        .productAction__quantity {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            height: 36px;
+            .productAction__quantity__title {
+                margin-right: 12px;
+            }
+        }
+
+        .productAction__addToCart {
+            margin-bottom: 12px;
+            max-width: 300px;
+        }
+    }
+}
+
+@include xs {
+    .productAction {
+        height: unset;
+        padding: 24px 8px;
+        font-size: 0.9rem;
+
+        .productAction__container {
+            height: unset;
+            overflow-y: unset;
+            margin-bottom: 12px;
+
+            .productAction__name {
+                font-size: 1.3rem;
+            }
+
+            .productAction__price {
+                .productAction__newPrice {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}

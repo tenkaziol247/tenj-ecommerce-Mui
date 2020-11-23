@@ -36,14 +36,18 @@ export default function CartList(props) {
     cartListRender = props.cartStore.map((ele) => {
       return (
         <tr key={ele.id}>
-          <td>{ele.name}</td>
+          <td>
+            <Link to={`/product/${ele.id}`}>{ele.name}</Link>
+          </td>
           <td>${(+ele.price).toFixed(2)}</td>
           <td>
-            <QuantityHandler
-              subtractClickedHandler={() => props.subtractClickedHandler(ele)}
-              addClickedHandler={() => props.addClickedHandler(ele)}
-              quantity={ele.quantity}
-            />
+            <div className="cartList__quantityHandler">
+              <QuantityHandler
+                subtractClickedHandler={() => props.subtractClickedHandler(ele)}
+                addClickedHandler={() => props.addClickedHandler(ele)}
+                quantity={ele.quantity}
+              />
+            </div>
           </td>
           <td>${(ele.price * ele.quantity).toFixed(2)}</td>
           <td>

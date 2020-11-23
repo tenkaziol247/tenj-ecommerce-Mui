@@ -1,5 +1,23 @@
-export { addToCart, removeToCart } from "./cartAction";
+export {
+  addToCart,
+  removeFromCart,
+  setShippingType,
+  resetCartStore,
+} from "./cartAction";
 
 export { fetchProducts } from "./productsAction";
 
-export { onAuthStateChanged, register, logout, login } from "./authAction";
+export {
+  onAuthStateChanged,
+  setRedirectPath,
+  register,
+  logout,
+  login,
+  resetError,
+  resetPassword,
+  resetSuccessMessage,
+  updateDisplayName,
+  updatePassword,
+} from "./authAction";
+
+export { placeOrder, resetSuccessStatus, fetchOrder } from "./orderAction";

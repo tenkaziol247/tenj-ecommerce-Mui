@@ -48,13 +48,21 @@
         .quickView__right__above {
             width: 100%;
             height: 85%;
-            border-bottom: 1px solid $color-gray;
 
             .quickView__right__name {
                 font-size: 1.7rem;
                 font-weight: 400;
-                color: $color-primary;
                 padding: 6px 0;
+
+                a {
+                    color: $color-primary;
+                    text-decoration: none;
+                    transition: all 0.3;
+
+                    &:hover {
+                        color: $color-pink;
+                    }
+                }
             }
 
             .quickView__right__feedback {
@@ -63,16 +71,6 @@
                 .quickView__right__rate {
                     font-size: 0.85rem;
                     padding-right: 10px;
-
-                    .quickView__right__rate__full {
-                        padding-right: 2px;
-                        color: $color-primary;
-                    }
-
-                    .quickView__right__rate__empty {
-                        padding-right: 2px;
-                        color: $color-gray;
-                    }
                 }
 
                 .quickView__right__review {
@@ -149,65 +147,6 @@
 
                     span {
                         margin-right: 8px;
-                    }
-                }
-            }
-        }
-
-        .quickView__right__below {
-            width: 100%;
-            height: 15%;
-            padding-top: 8px;
-            font-size: 0.94rem;
-            font-weight: 300;
-
-            .quickView__right__categories {
-                .quickView__right__categories__title {
-                    padding-right: 12px;
-                }
-
-                .quickView__right__category {
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    color: $color-gray-2;
-
-                    &:hover {
-                        color: $color-black-2;
-                    }
-
-                    &::after {
-                        content: ", ";
-                    }
-
-                    &:last-of-type {
-                        &::after {
-                            content: "";
-                        }
-                    }
-                }
-            }
-
-            .quickView__right__social {
-                margin-top: 6px;
-
-                a {
-                    margin: 0 4px;
-                    padding: 0;
-                    display: inline-block;
-                    height: 32px;
-                    width: 32px;
-                    line-height: 32px;
-                    text-align: center;
-                    border: 1px solid $color-gray;
-                    border-radius: 50%;
-                    color: $color-black-2;
-                    box-sizing: border-box;
-                    font-size: 0.8rem;
-                    transition: all 0.3s;
-
-                    &:hover {
-                        color: $color-primary;
-                        border-color: $color-primary;
                     }
                 }
             }

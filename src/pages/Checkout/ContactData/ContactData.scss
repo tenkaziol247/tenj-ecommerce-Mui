@@ -1,0 +1,18 @@
+@import "../../../utilities/mixin.scss";
+
+.contactData {
+    margin-right: 16px;
+    margin-bottom: 32px;
+    .contactData__title {
+        margin-bottom: 12px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}
+
+@include sm {
+    .contactData {
+        margin-right: 0px;
+        margin-bottom: 48px;
+    }
+}

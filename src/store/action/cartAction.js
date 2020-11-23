@@ -12,9 +12,22 @@ export const addToCart = (item, quantity) => {
   };
 };
 
-export const removeToCart = (id) => {
+export const removeFromCart = (id) => {
   return {
-    type: actionTypes.REMOVE_TO_CART,
+    type: actionTypes.REMOVE_FROM_CART,
     id: id,
+  };
+};
+
+export const setShippingType = (shippingType) => {
+  return {
+    type: actionTypes.SET_SHIPPING_TYPE,
+    shippingType,
+  };
+};
+
+export const resetCartStore = () => {
+  return {
+    type: actionTypes.RESET_CART_STORE,
   };
 };

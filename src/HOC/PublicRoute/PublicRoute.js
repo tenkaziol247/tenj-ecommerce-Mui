@@ -10,12 +10,16 @@ export default function PublicRoute({
   template,
   ...restProps
 }) {
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser, redirectPath } = useSelector((state) => state.auth);
   let routeRender = (
     <Route
       {...restProps}
       render={(props) =>
-        currentUser && special ? <Redirect to="/" /> : <Component {...props} />
+        currentUser && special ? (
+          <Redirect to={redirectPath} />
+        ) : (
+          <Component {...props} />
+        )
       }
     />
   );
@@ -25,7 +29,7 @@ export default function PublicRoute({
         {...restProps}
         render={(props) =>
           currentUser && special ? (
-            <Redirect to="/" />
+            <Redirect to={redirectPath} />
           ) : (
             <>
               <Header />

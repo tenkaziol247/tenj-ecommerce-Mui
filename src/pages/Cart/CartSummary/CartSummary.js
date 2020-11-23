@@ -1,23 +1,57 @@
 import { Button } from "@material-ui/core";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./CartSummary.scss";
+import * as actions from "../../../store/action";
+import { useHistory } from "react-router-dom";
 
-export default function CartSummary(props) {
-  const { subTotal } = props;
-
-  const firstInputRef = useRef(null);
-
+export default function CartSummary({ subTotal = 0, ...restProps }) {
   const [total, setTotal] = useState(0);
 
+  const history = useHistory();
+
+  const { currentUser } = useSelector((state) => state.auth);
+  const { shippingType } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setTotal(subTotal);
-    firstInputRef.current.checked = true;
+    setTotal(+subTotal);
   }, [subTotal]);
 
+  useEffect(() => {
+    switch (shippingType) {
+      case "free":
+        setTotal(+subTotal);
+        break;
+      case "standard":
+        setTotal(+subTotal + 10);
+        break;
+      case "fastest":
+        setTotal(+subTotal + 20);
+        break;
+      default:
+        setTotal(+subTotal);
+        break;
+    }
+  }, [shippingType, subTotal]);
+
   const shippingTypeCheckedHandler = (e) => {
-    e.currentTarget.checked = true;
-    setTotal(+subTotal + +e.currentTarget.value);
+    dispatch(actions.setShippingType(e.currentTarget.value));
+  };
+
+  const handleStartCheckout = () => {
+    if (subTotal > 0) {
+      if (currentUser) {
+        history.push("/checkout");
+      } else {
+        dispatch(actions.setRedirectPath("/checkout"));
+        history.push("/auth");
+      }
+    } else {
+      alert("Please add item to cart");
+    }
   };
 
   return (
@@ -36,12 +70,12 @@ export default function CartSummary(props) {
           <tr className="cartSummary__shipping__item">
             <td>
               <input
-                ref={firstInputRef}
                 id="freeShipping"
                 type="radio"
                 name="shippingType"
-                value="0"
+                value="free"
                 onChange={(e) => shippingTypeCheckedHandler(e)}
+                checked={shippingType === "free"}
               />
               <label
                 className="cartSummary__custom__label"
@@ -58,8 +92,9 @@ export default function CartSummary(props) {
                 id="standardShipping"
                 type="radio"
                 name="shippingType"
-                value="10"
+                value="standard"
                 onChange={(e) => shippingTypeCheckedHandler(e)}
+                checked={shippingType === "standard"}
               />
               <label
                 className="cartSummary__custom__label"
@@ -76,8 +111,9 @@ export default function CartSummary(props) {
                 id="fastestShipping"
                 type="radio"
                 name="shippingType"
-                value="20"
+                value="fastest"
                 onChange={(e) => shippingTypeCheckedHandler(e)}
+                checked={shippingType === "fastest"}
               />
               <label
                 className="cartSummary__custom__label"
@@ -91,7 +127,6 @@ export default function CartSummary(props) {
           <tr className="cartSummary__estimate">
             <td>
               <h4>Estimate for Your Country</h4>
-              <a href="/">Change address</a>
             </td>
             <td></td>
           </tr>
@@ -107,6 +142,7 @@ export default function CartSummary(props) {
           color="primary"
           style={{ color: "white" }}
           disableElevation
+          onClick={handleStartCheckout}
         >
           PROCEED TO CHECKOUT
         </Button>

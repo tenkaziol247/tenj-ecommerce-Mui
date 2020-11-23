@@ -70,7 +70,7 @@ export default function CartMain(props) {
 
   const handleAgreeClicked = () => {
     handleClickVariant();
-    dispatch(actions.removeToCart(id));
+    dispatch(actions.removeFromCart(id));
     handleCloseModal();
   };
 

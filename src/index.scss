@@ -57,9 +57,9 @@ body.modalOpen {
 }
 
 .dropdown__container {
-  background-color: $color-white;
-  padding: 2px 8px;
-  border: 1px solid $color-gray-1;
+  background-color: $color-black-3;
+  padding: 6px 12px;
+  border: 1px solid $color-white-2;
   border-radius: 4px;
   overflow: hidden;
   ul {
@@ -67,13 +67,10 @@ body.modalOpen {
     li {
       a {
         display: inline-block;
-        text-align: center;
-        width: 60px;
-        padding: 2px unset;
+        max-width: 120px;
         text-decoration: none;
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: $color-black;
+        font-size: 0.9rem;
+        color: $color-white;
 
         &:hover {
           color: $color-primary;
@@ -81,6 +78,48 @@ body.modalOpen {
           text-decoration-color: $color-primary;
         }
       }
+    }
+  }
+}
+
+.yellow-star {
+  padding-right: 2px;
+  color: $color-primary;
+  font-size: 0.85rem;
+}
+
+.gray-star {
+  padding-right: 2px;
+  color: $color-gray;
+  font-size: 0.85rem;
+}
+
+.product-color-default {
+  display: inline-block;
+  background-color: $color-white-2;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  margin: 4px 8px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid $color-black-3;
+    border-radius: 50%;
+    width: 140%;
+    height: 140%;
+    display: none;
+  }
+
+  &.selected {
+    &:before {
+      display: block;
     }
   }
 }
