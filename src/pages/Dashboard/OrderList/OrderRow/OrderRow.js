@@ -11,8 +11,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-
-import "./OrderRow.scss";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,13 +60,13 @@ export default function OrderRow({ row, ...restProps }) {
                 <TableHead>
                   <TableRow>
                     <TableCell className={classes.cusTableCellCollapse}>
-                      Product
+                      <Box component="h4">Product</Box>
                     </TableCell>
                     <TableCell className={classes.cusTableCellCollapse}>
-                      Quantity
+                      <Box component="h4">Quantity</Box>
                     </TableCell>
                     <TableCell className={classes.cusTableCellCollapse}>
-                      Price
+                      <Box component="h4">Price</Box>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -90,20 +88,69 @@ export default function OrderRow({ row, ...restProps }) {
                           {ele.quantity}
                         </TableCell>
                         <TableCell className={classes.cusTableCellCollapse}>
-                          {ele.price}
+                          {ele.price}$
                         </TableCell>
                       </TableRow>
                     );
                   })}
                   <TableRow>
-                    <TableCell colSpan={3} align="right">
-                      <Box mr={1} component="h4" color="secondary.main">
-                        <span>Total: </span>$
+                    <TableCell>
+                      <Box color="secondary.main" component="h4">
+                        Shipping type:
+                      </Box>
+                    </TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>
+                      <Box>{row.orderType}</Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Box color="secondary.main" component="h4">
+                        Receipt address:
+                      </Box>
+                    </TableCell>
+                    <TableCell colSpan={2} align="right">
+                      <Box
+                        mr={2}
+                      >{`${row.orderContact.streetAddress}, ${row.orderContact.country}`}</Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Box color="secondary.main" component="h4">
+                        Recipient:
+                      </Box>
+                    </TableCell>
+                    <TableCell colSpan={2} align="right">
+                      <Box mr={2}>{row.orderContact.fullName}</Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Box color="secondary.main" component="h4">
+                        Phone number:
+                      </Box>
+                    </TableCell>
+                    <TableCell colSpan={2} align="right">
+                      <Box mr={2}>{row.orderContact.phoneNumber}</Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Box component="h4" color="primary.main">
+                        Total:
+                      </Box>
+                    </TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>
+                      <Box component="h4" color="primary.main">
                         {row.orderData
                           .reduce((sum, ele) => {
                             return (sum += ele.price * ele.quantity);
                           }, 0)
                           .toFixed(2)}
+                        $
                       </Box>
                     </TableCell>
                   </TableRow>

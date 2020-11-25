@@ -17,12 +17,14 @@
             padding-right: 8px;
         }
 
-        .productFooter__category {
+        a {
             line-height: 1.2rem;
             font-weight: 300;
             cursor: pointer;
             transition: all 0.2s;
             color: $color-gray-2;
+            display: inline;
+            text-decoration: none;
 
             &:hover {
                 color: $color-black-2;

@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Box, Button, Grid, TextField } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./ContactData.scss";
 import * as actions from "../../../store/action";
+import Loader from "../../../components/Loader/Loader";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +30,21 @@ const useStyles = makeStyles((theme) => ({
   cusBox: {
     [theme.breakpoints.down("xs")]: {
       width: "100%",
+    },
+  },
+  cusTextField: {
+    "& div > input": {
+      backgroundColor: theme.palette.grey[100],
+      "&:focus": {
+        backgroundColor: theme.palette.common.white,
+      },
+    },
+  },
+  btnConfirm: {
+    backgroundColor: theme.palette.success.main,
+    color: theme.palette.common.white,
+    "&:hover": {
+      backgroundColor: theme.palette.success.dark,
     },
   },
 }));
@@ -45,27 +71,39 @@ const validationSchema = yup.object({
 export default function ContactData(props) {
   const classes = useStyles();
 
+  const [openDialog, setOpenDialog] = useState(false);
+  const [orderContact, setOrderContact] = useState(null);
+
   const { cartStore, shippingType } = useSelector((state) => state.cart);
   const { currentUser } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.order);
 
   const dispatch = useDispatch();
 
-  const placeOrder = (
-    orderContact,
-    orderData,
-    shippingType,
-    orderDate,
-    userId
-  ) => {
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleOpenDiaLog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleAgreeOrder = () => {
+    const date = new Date().getTime();
     dispatch(
       actions.placeOrder({
-        orderDate: orderDate,
-        orderContact: orderContact,
-        orderData: orderData,
+        orderDate: date,
+        orderContact: { ...orderContact },
+        orderData: [...cartStore],
         orderType: shippingType,
-        userId,
+        userId: currentUser.uid,
       })
     );
+  };
+
+  const placeOrder = (values) => {
+    setOrderContact({ ...values });
+    handleOpenDiaLog();
   };
 
   const formik = useFormik({
@@ -78,8 +116,7 @@ export default function ContactData(props) {
     },
     validationSchema,
     onSubmit: (values) => {
-      const date = new Date().getTime();
-      placeOrder(values, cartStore, shippingType, date, currentUser.uid);
+      placeOrder(values);
     },
   });
 
@@ -90,6 +127,7 @@ export default function ContactData(props) {
         <Grid justify="space-between" container className={classes.root}>
           <Grid className={classes.cusGridItem} item xs={12}>
             <TextField
+              className={classes.cusTextField}
               fullWidth
               variant="outlined"
               size="small"
@@ -104,6 +142,7 @@ export default function ContactData(props) {
           </Grid>
           <Grid className={classes.cusGridItem} item xs={12}>
             <TextField
+              className={classes.cusTextField}
               fullWidth
               variant="outlined"
               size="small"
@@ -118,6 +157,7 @@ export default function ContactData(props) {
           </Grid>
           <Grid className={classes.cusGridItem} item xs={12}>
             <TextField
+              className={classes.cusTextField}
               fullWidth
               variant="outlined"
               size="small"
@@ -138,6 +178,7 @@ export default function ContactData(props) {
           <Grid className={classes.cusGridItem} item xs={12} sm={6}>
             <Box width="98%" className={classes.cusBox}>
               <TextField
+                className={classes.cusTextField}
                 fullWidth
                 variant="outlined"
                 size="small"
@@ -154,6 +195,7 @@ export default function ContactData(props) {
           <Grid className={classes.cusGridItem} item xs={12} sm={6}>
             <Box width="98%" ml="auto" className={classes.cusBox}>
               <TextField
+                className={classes.cusTextField}
                 fullWidth
                 variant="outlined"
                 size="small"
@@ -179,6 +221,68 @@ export default function ContactData(props) {
           </Grid>
         </Grid>
       </form>
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <DialogTitle>
+              <Box borderBottom={1} textAlign="center">
+                Order Confirmation
+              </Box>
+            </DialogTitle>
+            <DialogContent>
+              <Box pl={1} pr={3} pb={3} borderBottom={1}>
+                <Typography component="p">
+                  <b>Customer: </b>
+                  {orderContact && orderContact.fullName}
+                </Typography>
+                <Typography component="p">
+                  <b>Address: </b>
+                  {orderContact && orderContact.streetAddress},{" "}
+                  {orderContact && orderContact.country}
+                </Typography>
+                <Typography component="p">
+                  <b>Zip code: </b>
+                  {orderContact && orderContact.zipCode}
+                </Typography>
+                <Typography component="p">
+                  <b>Phone number: </b>
+                  {orderContact && orderContact.phoneNumber}
+                </Typography>
+                <Typography component="p">
+                  <b>Total order value: </b>
+                  {cartStore.length > 0 &&
+                    cartStore
+                      .reduce((sum, ele) => {
+                        return (sum += ele.price * ele.quantity);
+                      }, 0)
+                      .toFixed(2)}
+                  $
+                </Typography>
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className={classes.btnConfirm}
+                variant="contained"
+                size="small"
+                onClick={handleAgreeOrder}
+              >
+                Confirm
+              </Button>
+              <Button
+                color="secondary"
+                variant="outlined"
+                size="small"
+                onClick={handleCloseDialog}
+              >
+                Close
+              </Button>
+            </DialogActions>
+          </>
+        )}
+      </Dialog>
     </div>
   );
 }

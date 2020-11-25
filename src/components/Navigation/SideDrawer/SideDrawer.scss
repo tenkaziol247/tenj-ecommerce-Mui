@@ -3,13 +3,40 @@
 .sideDrawer {
     background-color: $color-black-3;
     height: 100%;
-    max-width: 260px;
+    max-width: 280px;
     .sideDrawer__header {
         height: 40px;
-        margin: 16px 12px;
+        margin: 16px;
     }
     .sideDrawer__body {
         border-top: 1px solid $color-gray-1;
-        padding: 12px 8px;
+        padding: 24px 4px 80px;
+    }
+    .sideDrawer__social {
+        padding: 16px 4px;
+        border-top: 1px solid $color-gray-1;
+        text-align: center;
+
+        a {
+            margin: 0 6px;
+            padding: 0;
+            display: inline-block;
+            height: 32px;
+            width: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            box-sizing: border-box;
+            font-size: 1rem;
+            border: 1px solid $color-white;
+            color: $color-primary;
+            transition: all 0.3s;
+
+            &:hover {
+                color: $color-white;
+                border-color: $color-primary;
+                background-color: $color-primary;
+            }
+        }
     }
 }

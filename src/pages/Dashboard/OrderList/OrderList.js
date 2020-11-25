@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-import "./OrderList.scss";
 import * as actions from "../../../store/action";
 import Loader from "../../../components/Loader/Loader";
 import {
@@ -37,7 +36,17 @@ export default function OrderList(props) {
     currentUser && dispatch(actions.fetchOrder(currentUser.uid));
   }, [dispatch, currentUser]);
 
-  let orderListRender = null;
+  let orderListRender = (
+    <TableBody>
+      <TableRow>
+        <TableCell colSpan={3}>
+          <Box component="h3" m={2}>
+            No Orders in List
+          </Box>
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  );
   if (orders.length > 0) {
     orderListRender = (
       <TableBody>

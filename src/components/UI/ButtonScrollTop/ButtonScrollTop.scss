@@ -1,0 +1,23 @@
+@import "../../../utilities/variables.scss";
+@import "../../../utilities/mixin.scss";
+
+.buttonScrollTop {
+    position: fixed;
+    bottom: 100px;
+    right: 60px;
+    border-radius: 50%;
+    background-color: $color-opacity-gray;
+    z-index: 99;
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+@include xs {
+    .buttonScrollTop {
+        bottom: 32px;
+        right: 24px;
+    }
+}

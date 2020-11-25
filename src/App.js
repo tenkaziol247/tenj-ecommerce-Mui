@@ -10,6 +10,7 @@ import * as actions from "./store/action";
 import { auth } from "./firebase";
 import PublicRoute from "./HOC/PublicRoute/PublicRoute";
 import PrivateRoute from "./HOC/PrivateRoute/PrivateRoute";
+import ButtonScrollTop from "./components/UI/ButtonScrollTop/ButtonScrollTop";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -106,6 +107,7 @@ export default function App() {
               )}
               <Redirect to="/" />
             </Switch>
+            <ButtonScrollTop />
           </Suspense>
         )}
       </SnackbarProvider>

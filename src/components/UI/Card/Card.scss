@@ -78,13 +78,13 @@
         background-color: $color-white-3;
 
         .card__categories {
-            color: $color-gray;
-            font-size: 0.9rem;
-            font-weight: lighter;
-
-            .card__category {
+            a {
                 cursor: pointer;
                 transition: all 0.2s;
+                font-size: 0.9rem;
+                color: $color-gray;
+                font-weight: lighter;
+                display: inline;
 
                 &:hover {
                     color: $color-black-1;

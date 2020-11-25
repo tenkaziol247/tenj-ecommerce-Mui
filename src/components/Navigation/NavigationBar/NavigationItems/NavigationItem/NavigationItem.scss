@@ -25,7 +25,7 @@
             width: 0;
             height: 100%;
             border-bottom: 2px solid $color-primary;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         &:active,
@@ -53,10 +53,27 @@
         margin: 0;
 
         a {
-            padding: 4px 0;
+            border-bottom: 1px solid $color-black-2;
+            box-sizing: border-box;
+            overflow: hidden;
+            min-width: 100%;
+            padding: 4px 8px;
             align-items: center;
-            color: $color-white;
+            color: $color-gray;
             font-weight: 500;
+
+            &::after {
+                display: none;
+            }
+
+            &:active,
+            &.active {
+                background-color: $color-opacity-black-1;
+            }
+
+            &:hover {
+                background-color: $color-black-2;
+            }
         }
     }
 }

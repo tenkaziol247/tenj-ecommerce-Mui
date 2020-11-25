@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./ProductFooter.scss";
+import { Link } from "react-router-dom";
 
 export default function ProductFooter(props) {
   const { item } = props;
@@ -13,9 +14,9 @@ export default function ProductFooter(props) {
         <span>
           {item.map((catItem, index) => {
             return (
-              <span key={index} className="productFooter__category">
+              <Link to={`/list?cat=${catItem}`} key={index}>
                 {catItem}
-              </span>
+              </Link>
             );
           })}
         </span>

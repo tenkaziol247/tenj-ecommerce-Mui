@@ -5,6 +5,7 @@ import ProductListing from "../ProductListing/ProductListing";
 import Pagination from "../../../components/UI/Pagination/Pagination";
 import Toolbox from "../Toolbox/Toolbox";
 import ListingSidebar from "../ListingSidebar/ListingSidebar";
+import { useLocation } from "react-router-dom";
 
 export default function ListContainer(props) {
   const listMainRef = useRef(null);
@@ -23,6 +24,8 @@ export default function ListContainer(props) {
   const [filterPriceProducts, setFilterPriceProducts] = useState([]);
   const [fieldCategory, setFieldCategory] = useState(null);
   const [flagClear, setFlagClear] = useState(false);
+
+  let query = new URLSearchParams(useLocation().search).get("cat");
 
   useEffect(() => {
     if (filterCategory.length <= 0) {
@@ -51,11 +54,18 @@ export default function ListContainer(props) {
         return all;
       }, {});
       const newArrChecked = Object.keys(newObj).map((value, index) => {
-        return { field: value, quantity: newObj[value], isChecked: false };
+        return {
+          field: value,
+          quantity: newObj[value],
+          isChecked: query === value ? true : false,
+        };
       });
+      if (query) {
+        setFilterCategory([query.toLowerCase()]);
+      }
       setFieldCategory(newArrChecked);
     }
-  }, [productsData]);
+  }, [productsData, query]);
 
   useEffect(() => {
     if (filterPrice[1] >= 3000) {

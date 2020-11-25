@@ -21,13 +21,16 @@ export default function QuantityHandler(props) {
       <input
         className="quantityHandler__input"
         value={props.quantity}
-        onChange={() => {}}
+        onChange={props.handleQuantityInput}
+        onBlur={props.handleBlurInput}
       />
     </div>
   );
 }
 
 QuantityHandler.propStyles = {
+  handleBlurInput: PropTypes.func,
+  handleQuantityInput: PropTypes.func,
   subtractClickedHandler: PropTypes.func,
   addClickedHandler: PropTypes.func,
   quantity: PropTypes.any.isRequired,

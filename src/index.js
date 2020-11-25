@@ -7,10 +7,12 @@ import App from "./App";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
 import store from "./store/store";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
+      <ScrollToTop />
       <App />
     </BrowserRouter>
   </Provider>,

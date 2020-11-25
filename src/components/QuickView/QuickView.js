@@ -46,6 +46,22 @@ export default function QuickView(props) {
     setQuantity(1);
   };
 
+  const handleQuantityInput = (e) => {
+    const reg = /^[0-9\b]+$/;
+    if (
+      e.target.value === "" ||
+      (reg.test(e.target.value) && e.target.value.length < 4)
+    ) {
+      setQuantity(Number(e.target.value));
+    }
+  };
+
+  const handleBlurInput = (e) => {
+    if (e.target.value <= 0) {
+      setQuantity(1);
+    }
+  };
+
   const subtractClickedHandler = () => {
     if (quantity > 1) {
       setQuantity((prev) => prev - 1);
@@ -129,6 +145,8 @@ export default function QuickView(props) {
                   subtractClickedHandler={subtractClickedHandler}
                   addClickedHandler={addClickedHandler}
                   quantity={quantity}
+                  handleQuantityInput={handleQuantityInput}
+                  handleBlurInput={handleBlurInput}
                 />
               </div>
               <div className="quickView__right__addToCart">

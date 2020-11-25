@@ -1,78 +1,96 @@
-import React from "react";
-
-import { makeStyles, fade, duration } from "@material-ui/core/styles";
-import InputBase from "@material-ui/core/InputBase";
+import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
+import { useSelector } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
-  search: {
-    position: "relative",
-    borderRadius: "24px",
-    boxSizing: "border-box",
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    border: `1px solid transparent`,
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.2),
-    },
-    margin: theme.spacing("auto", 0),
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    transition: "border 0.3s",
-    [theme.breakpoints.up("lg")]: {
-      width: "auto",
-      "&:hover": {
-        border: `1px solid ${theme.palette.primary.main}`,
-      },
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 1),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: theme.palette.common.white,
-    [theme.breakpoints.up("lg")]: {
-      padding: theme.spacing(0, 2),
-    },
-  },
-  inputRoot: {
-    color: theme.palette.common.white,
-    flex: 1,
-  },
-  inputInput: {
-    width: "100%",
-    paddingLeft: `calc(1em + ${theme.spacing(3)}px)`,
-    [theme.breakpoints.up("lg")]: {
-      padding: theme.spacing(0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width", duration.complex),
-      width: "16ch",
-      "&:focus": {
-        width: "36ch",
-      },
-    },
-  },
-}));
+import "./SearchBar.scss";
+import { Link } from "react-router-dom";
 
 export default function SearchBar(props) {
-  const classes = useStyles();
+  const [products, setProducts] = useState([]);
+  const [suggestArr, setSuggestArr] = useState([]);
+
+  const inputRef = useRef(null);
+
+  const { productsStore } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    const updateProducts = productsStore.map((ele, index) => {
+      return { name: ele.title, id: ele.id };
+    });
+    updateProducts.sort((a, b) => {
+      let nameA = a.name.toLowerCase();
+      let nameB = b.name.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+    setProducts(updateProducts);
+  }, [productsStore]);
+
+  const handleValueChange = (e) => {
+    let text = e.target.value.toLowerCase();
+    let updateSuggest = [];
+    if (text.length > 0) {
+      updateSuggest = products.filter((ele) =>
+        ele.name.toLowerCase().includes(text)
+      );
+    }
+    setSuggestArr(updateSuggest);
+  };
+
+  const handleFocusInput = () => {
+    inputRef.current.focus();
+  };
+
+  const handleInputBlur = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      inputRef.current && inputRef.current.classList.remove("searching");
+      setSuggestArr([]);
+    }, 100);
+  };
+
+  const suggestRender = () => {
+    if (suggestArr.length === 0) {
+      inputRef.current && inputRef.current.classList.remove("searching");
+      return null;
+    } else {
+      inputRef.current && inputRef.current.classList.add("searching");
+      return (
+        <ul>
+          {suggestArr.map((ele) => {
+            return (
+              <li key={ele.id}>
+                <Link to={`/product/${ele.id}`}>{ele.name}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      );
+    }
+  };
+
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
+    <div className="wrapperSearchBar">
+      <div className="searchBar">
+        <input
+          placeholder="Search..."
+          type="text"
+          className="searchBar__input"
+          ref={inputRef}
+          onChange={handleValueChange}
+          onBlur={handleInputBlur}
+        />
+        <div className="searchBar__icon" onClick={handleFocusInput}>
+          <SearchIcon />
+        </div>
+        <div className="searchBar__suggest">{suggestRender()}</div>
       </div>
-      <InputBase
-        placeholder="Search…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ "aria-label": "search" }}
-      />
     </div>
   );
 }

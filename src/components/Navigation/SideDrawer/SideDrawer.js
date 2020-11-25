@@ -20,6 +20,22 @@ export default function SideDrawer(props) {
         <div className="sideDrawer__body">
           <NavigationBar />
         </div>
+        <div className="sideDrawer__social">
+          <span>
+            <a href="https://www.facebook.com">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com">
+              <i className="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.pinterest.com">
+              <i className="fab fa-pinterest-p"></i>
+            </a>
+          </span>
+        </div>
       </div>
     </Drawer>
   );

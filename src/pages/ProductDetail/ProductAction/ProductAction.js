@@ -39,6 +39,22 @@ export default function ProductAction(props) {
     dispatch(actions.addToCart(item, quantity));
   };
 
+  const handleQuantityInput = (e) => {
+    const reg = /^[0-9\b]+$/;
+    if (
+      e.target.value === "" ||
+      (reg.test(e.target.value) && e.target.value.length < 4)
+    ) {
+      setQuantity(Number(e.target.value));
+    }
+  };
+
+  const handleBlurInput = (e) => {
+    if (e.target.value <= 0) {
+      setQuantity(1);
+    }
+  };
+
   return (
     <div className="productAction">
       <div className="productAction__container">
@@ -78,6 +94,8 @@ export default function ProductAction(props) {
             quantity={quantity}
             subtractClickedHandler={subtractClickedHandler}
             addClickedHandler={addClickedHandler}
+            handleQuantityInput={handleQuantityInput}
+            handleBlurInput={handleBlurInput}
           />
         </div>
         <div className="productAction__addToCart">

@@ -107,9 +107,9 @@ export default function Card(props) {
         <div className="card__categories">
           {item.category.map((catItem, index) => {
             return (
-              <span key={index} className="card__category">
+              <Link to={`/list?cat=${catItem}`} key={index}>
                 {catItem}
-              </span>
+              </Link>
             );
           })}
         </div>

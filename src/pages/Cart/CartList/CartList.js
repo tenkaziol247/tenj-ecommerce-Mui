@@ -46,6 +46,8 @@ export default function CartList(props) {
                 subtractClickedHandler={() => props.subtractClickedHandler(ele)}
                 addClickedHandler={() => props.addClickedHandler(ele)}
                 quantity={ele.quantity}
+                handleBlurInput={() => {}}
+                handleQuantityInput={() => {}}
               />
             </div>
           </td>
